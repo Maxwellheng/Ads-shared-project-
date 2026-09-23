@@ -209,7 +209,7 @@ def fetch_listings_html(seller_id: str) -> tuple[list[str], str]:
     for sid in candidates:
         url = f"https://www.ebay.com/sch/i.html?_ssn={sid}&_pgn=1&_ipg=60&_stpos=10001"
         try:
-            r = requests.get(url, headers=HEADERS, timeout=15)
+            r = _ebay_get(url, timeout=15)
             raw = re.findall(r'\$([0-9][0-9,]*\.?[0-9]*)', r.text)
             prices = [float(p.replace(',', '')) for p in raw if 0.99 < float(p.replace(',', '')) < 50000]
             if len(prices) >= 3:
