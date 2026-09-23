@@ -18,6 +18,20 @@ HEADERS = {
     'Accept-Language': 'en-US,en;q=0.9',
 }
 
+
+def _ebay_get(url: str, timeout: int = 15):
+    """Route www.ebay.com page requests through ScraperAPI when key is available."""
+    try:
+        key = st.secrets.get("SCRAPER_API_KEY", "")
+    except Exception:
+        key = ""
+    if key:
+        proxy = (f"http://api.scraperapi.com"
+                 f"?api_key={key}&url={requests.utils.quote(url, safe='')}")
+        return requests.get(proxy, timeout=timeout + 15)
+    return requests.get(url, headers=HEADERS, timeout=timeout)
+
+
 CATEGORY_KEYWORDS = {
     # Parts & Accessories
     'Auto Parts & Accessories': [
@@ -177,7 +191,7 @@ def fetch_pages_for_sid(sid: str, sold_filter: str) -> list[str]:
         url = (f"https://www.ebay.com/sch/i.html"
                f"?_ssn={sid}&_pgn={page}&_ipg=120&_stpos=10001{sold_filter}")
         try:
-            r = requests.get(url, headers=HEADERS, timeout=15)
+            r = _ebay_get(url, timeout=15)
             pages.append(r.text)
             time.sleep(0.3)
         except:
@@ -285,9 +299,9 @@ def fetch_product_images_from_search(seller_id: str, n: int = 2) -> list[str]:
     """Fetch product thumbnails from seller's search results (not store page)."""
     for sid in [seller_id, seller_id.replace('_', '')]:
         try:
-            r = requests.get(
+            r = _ebay_get(
                 f"https://www.ebay.com/sch/i.html?_ssn={sid}&_pgn=1&_ipg=10",
-                headers=HEADERS, timeout=10)
+                timeout=10)
             imgs = extract_product_images(r.text, n)
             if imgs:
                 return imgs
@@ -300,7 +314,7 @@ def fetch_store_titles(seller_id: str) -> tuple[list[str], list[str]]:
     """Fetch /str/ store page — returns (titles, image_urls)."""
     for sid in [seller_id, seller_id.replace('-', ''), seller_id.replace('_', '')]:
         try:
-            r = requests.get(f"https://www.ebay.com/str/{sid}", headers=HEADERS, timeout=15)
+            r = _ebay_get(f"https://www.ebay.com/str/{sid}", timeout=15)
             titles = extract_titles(r.text)
             imgs = extract_product_images(r.text)
             if len(titles) >= 3:
@@ -314,9 +328,9 @@ def fetch_store_titles(seller_id: str) -> tuple[list[str], list[str]]:
 def fetch_total_listing_count(seller_id: str) -> str:
     """Fetch real total listing count from eBay search page."""
     try:
-        r = requests.get(
+        r = _ebay_get(
             f"https://www.ebay.com/sch/i.html?_ssn={seller_id}&_pgn=1&_ipg=1",
-            headers=HEADERS, timeout=10)
+            timeout=10)
         m = re.search(r'([\d,]+\+?)\s*results?', r.text, re.I)
         if m:
             return m.group(1)
@@ -458,7 +472,7 @@ def render_quadrant_chart(store: dict, T: dict = None) -> plt.Figure:
 
     BG, GRID = '#ffffff', '#d1d5db'
 
-    fig, ax = plt.subplots(figsize=(9, 6.5), facecolor=BG)
+    fig, ax = plt.subplots(figsize=(8, 5.5), facecolor=BG)
     ax.set_facecolor(BG)
     ax.set_xlim(-11, 11)
     ax.set_ylim(-11, 11)
@@ -1212,6 +1226,7 @@ st.set_page_config(page_title="eBay 广告策略看板", layout="wide", initial_
 
 st.markdown("""
 <style>
+/* ── Desktop ── */
 .block-container { padding: 2rem 3rem 3rem; }
 h1, h2, h3 { color: #0064D2 !important; }
 .stButton > button {
@@ -1222,6 +1237,24 @@ h1, h2, h3 { color: #0064D2 !important; }
 div[data-testid="metric-container"] {
     background: #f8f9fa; border-radius: 8px; padding: 1rem;
     border: 1px solid #e5e7eb;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    .block-container { padding: 1rem 1rem 2rem !important; }
+    h1 { font-size: 1.6rem !important; }
+    h2 { font-size: 1.2rem !important; }
+    h3 { font-size: 1rem !important; }
+    /* 搜索框全宽 */
+    .stTextInput input { font-size: 1rem !important; }
+    .stButton > button { width: 100% !important; border-radius: 12px !important; }
+    /* 指标卡片缩小内边距 */
+    div[data-testid="metric-container"] { padding: 0.6rem !important; }
+    div[data-testid="metric-container"] [data-testid="stMetricValue"] {
+        font-size: 1.2rem !important;
+    }
+    /* 分割线间距 */
+    hr { margin: 0.8rem 0 !important; }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1244,8 +1277,8 @@ _has_results = bool(st.session_state.get('cached_sid'))
 
 if not _has_results:
     # ── Google-style landing page ──
-    st.markdown("<div style='height:15vh'></div>", unsafe_allow_html=True)
-    _, _center, _ = st.columns([1, 3, 1])
+    st.markdown("<div style='height:8vh'></div>", unsafe_allow_html=True)
+    _, _center, _ = st.columns([0.2, 3, 0.2])
     with _center:
         st.markdown(
             f"<h1 style='text-align:center;color:#0064D2;font-size:2.6rem;margin-bottom:4px;'>{T['title']}</h1>",
