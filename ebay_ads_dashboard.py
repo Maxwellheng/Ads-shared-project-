@@ -12,28 +12,42 @@ from io import BytesIO
 
 plt.rcParams['axes.unicode_minus'] = False
 
+@st.cache_resource
 def _setup_cjk_font():
-    """Download and register a CJK font for Linux/cloud environments."""
-    import os
+    """Register a CJK font once per server session."""
+    import os, glob
     from matplotlib import font_manager
+
+    # 1. Use system font installed by packages.txt (fonts-noto-cjk on Streamlit Cloud)
+    sys_patterns = [
+        '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',
+        '/usr/share/fonts/opentype/noto/NotoSansCJKsc-Regular.otf',
+        '/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc',
+    ]
+    for p in sys_patterns:
+        if os.path.exists(p):
+            font_manager.fontManager.addfont(p)
+            return ['Noto Sans CJK SC', 'Noto CJK SC', 'DejaVu Sans']
+
+    # 2. Download OTF as fallback (Streamlit Cloud GitHub raw, ~9 MB)
     font_path = '/tmp/NotoSansSC-Regular.otf'
     if not os.path.exists(font_path):
         try:
             _r = requests.get(
                 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansSC-Regular.otf',
-                timeout=20)
-            if _r.status_code == 200:
+                timeout=30)
+            if _r.status_code == 200 and len(_r.content) > 500000:
                 with open(font_path, 'wb') as _f:
                     _f.write(_r.content)
         except Exception:
             pass
     if os.path.exists(font_path):
         font_manager.fontManager.addfont(font_path)
-        plt.rcParams['font.family'] = ['Noto Sans SC', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans']
-    else:
-        plt.rcParams['font.family'] = ['Microsoft YaHei', 'SimHei', 'DejaVu Sans']
+        return ['Noto Sans SC', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans']
 
-_setup_cjk_font()
+    return ['Microsoft YaHei', 'SimHei', 'DejaVu Sans']
+
+plt.rcParams['font.family'] = _setup_cjk_font()
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0 Safari/537.36',
@@ -206,51 +220,47 @@ def extract_seller_id(raw_input: str) -> str:
     return raw.split('/')[-1]
 
 
-def fetch_pages_for_sid(sid: str, sold_filter: str) -> list[str]:
-    """Fetch up to 3 pages for a given seller ID and filter."""
+def fetch_pages_for_sid(sid: str, sold_filter: str, max_pages: int = 2) -> list[str]:
+    """Fetch listing pages for a seller ID."""
     pages = []
-    for page in range(1, 4):
+    for page in range(1, max_pages + 1):
         url = (f"https://www.ebay.com/sch/i.html"
                f"?_ssn={sid}&_pgn={page}&_ipg=120&_stpos=10001{sold_filter}")
         try:
             r = _ebay_get(url, timeout=15)
             pages.append(r.text)
-            time.sleep(0.3)
         except:
             pass
     return pages
 
 
 def fetch_listings_html(seller_id: str) -> tuple[list[str], str]:
-    """Fetch both sold and current listings, combine for richer data."""
+    """Fetch sold + current listings. Probe response is reused as first current page."""
     candidates = [seller_id, seller_id.replace('-', ''), seller_id.replace('_', '')]
     candidates = list(dict.fromkeys(candidates))
 
-    # Find the working seller ID first (try sold listings as probe)
     working_sid = None
+    probe_html = None
     for sid in candidates:
-        url = f"https://www.ebay.com/sch/i.html?_ssn={sid}&_pgn=1&_ipg=60&_stpos=10001"
+        url = f"https://www.ebay.com/sch/i.html?_ssn={sid}&_pgn=1&_ipg=120&_stpos=10001"
         try:
             r = _ebay_get(url, timeout=15)
-            # Accept if page has any prices OR any listing links (handles low-volume sellers)
             raw = re.findall(r'\$([0-9][0-9,]*\.?[0-9]*)', r.text)
             prices = [float(p.replace(',', '')) for p in raw if 0.99 < float(p.replace(',', '')) < 50000]
             has_listings = bool(re.search(r'/itm/\d+', r.text))
             if len(prices) >= 1 or has_listings:
                 working_sid = sid
+                probe_html = r.text  # reuse as current page 1 — saves 1 request
                 break
         except:
             pass
-        time.sleep(0.3)
 
     if not working_sid:
         return [], '无数据'
 
-    # Fetch both sold and current in parallel via sequential calls
-    all_pages = []
-    sold_pages = fetch_pages_for_sid(working_sid, '&LH_Complete=1&LH_Sold=1')
-    current_pages = fetch_pages_for_sid(working_sid, '')
-    all_pages = sold_pages + current_pages
+    # 2 pages sold + probe already covers current page 1 (no extra current request needed)
+    sold_pages = fetch_pages_for_sid(working_sid, '&LH_Complete=1&LH_Sold=1', max_pages=2)
+    all_pages = sold_pages + [probe_html]
 
     return all_pages, '已售出 + 当前在售'
 
@@ -305,17 +315,19 @@ def extract_titles(html: str) -> list[str]:
 
 
 def extract_product_images(html: str, n: int = 2) -> list[str]:
-    """Extract distinct product thumbnail URLs from a search results page.
-    Since we always call this on the seller search page (not store page),
-    all /images/g/ URLs found are listing thumbnails."""
+    """Extract product thumbnail URLs only from within s-item listing containers."""
     seen_base, urls = set(), []
-    for m in re.finditer(r'https://i\.ebayimg\.com/images/g/([^/]+)/s-l\d+\.(?:jpg|webp|png)', html):
-        img_hash = m.group(1)
-        if img_hash not in seen_base:
-            seen_base.add(img_hash)
-            urls.append(f'https://i.ebayimg.com/images/g/{img_hash}/s-l300.jpg')
+    # Find each s-item start position, then search for an image in the next 2000 chars
+    for item_m in re.finditer(r'class="s-item[\s"]', html):
+        chunk = html[item_m.start():item_m.start() + 2000]
+        img_m = re.search(r'https://i\.ebayimg\.com/images/g/([^/]+)/s-l\d+\.(?:jpg|webp|png)', chunk)
+        if img_m:
+            img_hash = img_m.group(1)
+            if img_hash not in seen_base:
+                seen_base.add(img_hash)
+                urls.append(f'https://i.ebayimg.com/images/g/{img_hash}/s-l300.jpg')
         if len(urls) >= n:
-            return urls
+            break
     return urls
 
 
@@ -355,9 +367,16 @@ def fetch_total_listing_count(seller_id: str) -> str:
         r = _ebay_get(
             f"https://www.ebay.com/sch/i.html?_ssn={seller_id}&_pgn=1&_ipg=1",
             timeout=10)
-        m = re.search(r'([\d,]+\+?)\s*results?', r.text, re.I)
-        if m:
-            return m.group(1)
+        text = r.text
+        for pattern in [
+            r'([\d,]+\+?)\s*results?',
+            r'"totalEntries"\s*:\s*(\d+)',
+            r'srp-controls__count[^>]*>\s*([\d,]+)',
+            r'(\d[\d,]*)\s+item[s]?\s+found',
+        ]:
+            m = re.search(pattern, text, re.I)
+            if m:
+                return m.group(1)
     except:
         pass
     return ''
@@ -369,15 +388,12 @@ def scrape_store(raw_input: str) -> dict:
     all_titles = []
 
     pages, data_source = fetch_listings_html(seller_id)
+    image_urls = []
     for html in pages:
         all_prices += parse_prices(html)
         all_titles += extract_titles(html)
-
-    # Store page has more reliable product titles for category detection
-    store_titles, _ = fetch_store_titles(seller_id)
-    all_titles += store_titles
-    # Product thumbnails come from search results (not store page which shows avatar/banner)
-    image_urls = fetch_product_images_from_search(seller_id)
+        if not image_urls:
+            image_urls = extract_product_images(html, n=2)
 
     # Fetch real total from search page (try clean ID if underscore version gives nothing)
     total_count_str = fetch_total_listing_count(seller_id)
@@ -688,9 +704,11 @@ def classify_kw(kw: str, category: str, asp: float, T: dict = None) -> tuple:
                       'offroad', 'off road', 'wedding', 'desk', 'office', 'kids', 'women', 'men']
     is_scenario = any(w in kw_l for w in scenario_words)
 
-    is_specific_product = (word_count >= 3 and has_spec)
-    is_branded_long = (word_count >= 5 and not is_scenario)
-    is_exact_competitor = (is_competitor and word_count <= 3)
+    # 3+ word keywords are long-tail: search probability too low for Exact match
+    is_long_tail = (word_count >= 3)
+    # Only 1-2 word keywords with a measurable spec qualify for Exact
+    is_specific_product = (word_count <= 2 and has_spec)
+    is_exact_competitor = (is_competitor and word_count <= 2)
     is_broad_candidate = (
         word_count <= 2 and not has_spec and not is_competitor
         and (asp < 150 or category in ('Trading Cards', 'Coins & Paper Money', 'Comics & Memorabilia'))
@@ -704,14 +722,22 @@ def classify_kw(kw: str, category: str, asp: float, T: dict = None) -> tuple:
         kw_cat = T['cat_competitor']
         match = 'Phrase'
         reason = T['reason_comp_phrase']
+    elif is_long_tail:
+        # 3+ words: always Phrase (long-tail → too narrow for Exact)
+        if is_scenario:
+            kw_cat = T['cat_scenario']
+            reason = T['reason_scenario']
+        elif has_spec:
+            kw_cat = T['cat_spec']
+            reason = T['reason_has_spec']
+        else:
+            kw_cat = T['cat_core']
+            reason = T['reason_default']
+        match = 'Phrase'
     elif is_specific_product:
         kw_cat = T['cat_spec']
         match = 'Exact'
         reason = T['reason_spec_exact']
-    elif is_branded_long:
-        kw_cat = T['cat_core']
-        match = 'Exact'
-        reason = T['reason_branded_long']
     elif has_spec:
         kw_cat = T['cat_spec']
         match = 'Phrase'
@@ -742,7 +768,7 @@ _GENERIC_SEEDS = {
 }
 
 
-def extract_seeds_from_titles(titles: list, category: str, n: int = 6) -> list[str]:
+def extract_seeds_from_titles(titles: list, category: str, n: int = 4) -> list[str]:
     """Extract product-specific bigram/trigram seeds from listing titles.
     Brand words (appearing in >60% of titles but not a known category keyword) are
     excluded so seeds reflect what buyers search, not the seller's brand name.
@@ -854,7 +880,7 @@ def _get_synonym_seeds(seeds: list) -> list:
             for syn in SYNONYM_MAP.get(word, []):
                 if syn not in seeds and syn not in syn_seeds:
                     syn_seeds.append(syn)
-    return syn_seeds[:4]  # cap to avoid too many requests
+    return syn_seeds[:2]
 
 
 def _fetch_kw_candidates(seeds: list, titles: list) -> tuple:
@@ -876,9 +902,8 @@ def _fetch_kw_candidates(seeds: list, titles: list) -> tuple:
                 if kw not in all_kws:
                     all_kws[kw] = set()
                 all_kws[kw].add(source)
-        time.sleep(0.3)
 
-    # Synonym seeds — same 3 sources, fewer results
+    # Synonym seeds
     synonym_kws: set = set()
     for seed in _get_synonym_seeds(seeds):
         for source, fn in _sources:
@@ -890,7 +915,6 @@ def _fetch_kw_candidates(seeds: list, titles: list) -> tuple:
                     all_kws[kw] = set()
                 all_kws[kw].add(source)
                 synonym_kws.add(kw)
-        time.sleep(0.3)
 
     return all_kws, synonym_kws
 
@@ -1351,7 +1375,7 @@ if 'cached_store' not in st.session_state:
 
 store = st.session_state['cached_store']
 
-if store['listing_count'] == 0:
+if store['listing_count'] == 0 and not store.get('total_listing_count'):
     st.error(T['error_no_data'])
     st.stop()
 
