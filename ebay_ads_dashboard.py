@@ -10,8 +10,30 @@ import numpy as np
 import pandas as pd
 from io import BytesIO
 
-plt.rcParams['font.family'] = ['Microsoft YaHei', 'SimHei', 'DejaVu Sans']
 plt.rcParams['axes.unicode_minus'] = False
+
+def _setup_cjk_font():
+    """Download and register a CJK font for Linux/cloud environments."""
+    import os
+    from matplotlib import font_manager
+    font_path = '/tmp/NotoSansSC-Regular.otf'
+    if not os.path.exists(font_path):
+        try:
+            _r = requests.get(
+                'https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/SimplifiedChinese/NotoSansSC-Regular.otf',
+                timeout=20)
+            if _r.status_code == 200:
+                with open(font_path, 'wb') as _f:
+                    _f.write(_r.content)
+        except Exception:
+            pass
+    if os.path.exists(font_path):
+        font_manager.fontManager.addfont(font_path)
+        plt.rcParams['font.family'] = ['Noto Sans SC', 'Microsoft YaHei', 'SimHei', 'DejaVu Sans']
+    else:
+        plt.rcParams['font.family'] = ['Microsoft YaHei', 'SimHei', 'DejaVu Sans']
+
+_setup_cjk_font()
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0 Safari/537.36',
@@ -210,9 +232,11 @@ def fetch_listings_html(seller_id: str) -> tuple[list[str], str]:
         url = f"https://www.ebay.com/sch/i.html?_ssn={sid}&_pgn=1&_ipg=60&_stpos=10001"
         try:
             r = _ebay_get(url, timeout=15)
+            # Accept if page has any prices OR any listing links (handles low-volume sellers)
             raw = re.findall(r'\$([0-9][0-9,]*\.?[0-9]*)', r.text)
             prices = [float(p.replace(',', '')) for p in raw if 0.99 < float(p.replace(',', '')) < 50000]
-            if len(prices) >= 3:
+            has_listings = bool(re.search(r'/itm/\d+', r.text))
+            if len(prices) >= 1 or has_listings:
                 working_sid = sid
                 break
         except:
