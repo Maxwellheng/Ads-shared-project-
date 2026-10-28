@@ -80,47 +80,85 @@ CATEGORY_KEYWORDS = {
         'muffler', 'catalytic', 'horsepower', 'rpm',
         'chevrolet', 'chevy', 'ford', 'dodge', 'toyota', 'honda', 'jeep', 'subaru',
         'bmw', 'mercedes', 'audi', 'nissan', 'hyundai', 'kia', 'ram', 'gmc',
+        # DE
+        'kfz', 'fahrzeug', 'bremsscheibe', 'ersatzteil', 'fahrzeugteil', 'auspuff',
+        'kraftstoff', 'lenkung', 'getriebe', 'stoßdämpfer', 'motoröl', 'kühlmittel',
     ],
     'Cycling Parts & Accessories': ['shimano', 'sram', 'derailleur', 'handlebar', 'saddle', 'cassette',
-                                     'chainring', 'pedal', 'fork', 'stem', 'crankset'],
-    'Electric Bikes': ['electric bike', 'ebike', 'e-bike', 'electric bicycle', 'electric scooter'],
+                                     'chainring', 'pedal', 'fork', 'stem', 'crankset',
+                                     'fahrrad', 'fahrradteile', 'schaltung', 'sattel', 'lenker'],
+    'Electric Bikes': ['electric bike', 'ebike', 'e-bike', 'electric bicycle', 'electric scooter',
+                        'elektrofahrrad', 'e-fahrrad', 'pedelec', 'elektroroller'],
     # Home & Garden
     'Home & Garden': ['furniture', 'chair', 'table', 'lamp', 'decor', 'sofa', 'rug', 'curtain',
-                       'garden', 'outdoor', 'patio', 'pillow', 'bedding', 'mattress', 'shelf'],
+                       'garden', 'outdoor', 'patio', 'pillow', 'bedding', 'mattress', 'shelf',
+                       # DE
+                       'möbel', 'stuhl', 'tisch', 'lampe', 'teppich', 'vorhang', 'garten',
+                       'terrasse', 'kissen', 'bettwäsche', 'matratze', 'regal', 'deko'],
     'Plants & Succulents': ['succulent', 'cactus', 'aloe', 'echeveria', 'haworthia', 'sedum',
-                             'lithops', 'plant', 'live plant', 'bonsai', 'orchid'],
+                             'lithops', 'plant', 'live plant', 'bonsai', 'orchid',
+                             'pflanze', 'sukkulente', 'kaktus', 'orchidee'],
     # Electronics
     'Electronics': ['phone', 'laptop', 'tablet', 'camera', 'computer', 'monitor', 'keyboard',
-                     'gpu', 'cpu', 'motherboard', 'iphone', 'samsung', 'apple', 'gaming', 'console', 'ps5', 'xbox'],
+                     'gpu', 'cpu', 'motherboard', 'iphone', 'samsung', 'apple', 'gaming', 'console', 'ps5', 'xbox',
+                     # DE
+                     'handy', 'smartphone', 'kamera', 'drucker', 'fernseher', 'bildschirm',
+                     'tastatur', 'maus', 'kopfhörer', 'lautsprecher', 'speicher', 'festplatte'],
     # Business & Industrial
     'Business & Industrial': ['industrial', 'commercial', 'machinery', 'equipment', 'cnc',
-                               'pneumatic', 'hydraulic', 'forklift', 'compressor', 'generator', 'welder'],
+                               'pneumatic', 'hydraulic', 'forklift', 'compressor', 'generator', 'welder',
+                               'maschine', 'industrie', 'gewerbe', 'kompressor', 'schweißgerät'],
     # Lifestyle — Sports
     'Sports & Outdoors': ['fitness', 'gym', 'treadmill', 'dumbbell', 'yoga', 'running', 'weight',
-                           'hiking', 'camping', 'fishing', 'hunting', 'ski', 'golf'],
+                           'hiking', 'camping', 'fishing', 'hunting', 'ski', 'golf',
+                           # DE
+                           'hantel', 'laufband', 'wandern', 'angeln', 'jagd', 'gewichte',
+                           'krafttraining', 'fitnessstudio', 'sportgerät'],
     # Lifestyle — Health & Beauty
     'Health & Beauty': ['skincare', 'makeup', 'perfume', 'vitamin', 'supplement', 'hair',
-                         'serum', 'moisturizer', 'shampoo', 'nail'],
+                         'serum', 'moisturizer', 'shampoo', 'nail',
+                         # DE
+                         'hautpflege', 'kosmetik', 'parfüm', 'nahrungsergänzung',
+                         'haarfarbe', 'feuchtigkeitscreme', 'nagel', 'gesichtspflege'],
     # Lifestyle — Toys & Hobbies
     'Toys & Hobbies': ['toy', 'lego', 'diecast', 'model kit', 'hobby', 'puzzle', 'board game',
-                        'action figure', 'funko', 'barbie'],
+                        'action figure', 'funko', 'barbie',
+                        # DE
+                        'spielzeug', 'brettspiel', 'actionfigur', 'puppe', 'modellbausatz'],
     # Fashion
     'Clothing & Shoes': ['shirt', 'dress', 'pants', 'jacket', 'shoes', 'hoodie', 'sneaker',
-                          'jeans', 'coat', 'boots', 'sandal', 'nike', 'adidas'],
+                          'jeans', 'coat', 'boots', 'sandal', 'nike', 'adidas',
+                          # DE
+                          'hemd', 'hose', 'jacke', 'kleid', 'schuhe', 'pullover',
+                          'mantel', 'stiefel', 'sandalen', 'kleidung', 'mode'],
     'Jewelry & Watches': ['ring', 'necklace', 'bracelet', 'earring', 'gold', 'silver', 'diamond',
-                           'watch', 'rolex', 'cartier', 'pendant', 'gemstone'],
+                           'watch', 'rolex', 'cartier', 'pendant', 'gemstone',
+                           # DE
+                           'kette', 'armband', 'ohrringe', 'diamant', 'uhr', 'anhänger', 'edelstein'],
     # Collectibles
-    'Trading Cards': ['card', 'pokemon', 'psa', 'bgs', 'cgc', 'graded', 'tcg', 'mtg', 'yugioh',
-                       'rookie', 'holo', 'booster', 'sealed', 'sports card', 'charizard', 'refractor'],
+    'Trading Cards': ['card', 'cards', 'pokemon', 'psa', 'bgs', 'cgc', 'graded', 'tcg', 'mtg', 'yugioh',
+                       'rookie', 'holo', 'booster', 'sealed', 'sports card', 'charizard', 'refractor',
+                       'collectable', 'collectables', 'collectible', 'collectibles', 'antique',
+                       'railroad', 'vintage card', 'trading',
+                       # DE
+                       'karte', 'karten', 'sammelkarte', 'sammelkarten', 'spielkarte', 'tauschkarte'],
     'Coins & Paper Money': ['coin', 'silver dollar', 'gold coin', 'bullion', 'numismatic',
-                             'pcgs', 'ngc', 'proof', 'mint', 'currency', 'banknote'],
+                             'pcgs', 'ngc', 'proof', 'mint', 'currency', 'banknote',
+                             # DE
+                             'münze', 'münzen', 'goldmünze', 'silbermünze', 'banknote', 'numismatik'],
     'Comics & Memorabilia': ['comic', 'marvel', 'dc comics', 'autograph', 'signed', 'memorabilia',
-                              'vintage', 'antique', 'stamp', 'collectible'],
+                              'vintage', 'antique', 'stamp', 'collectible',
+                              # DE
+                              'briefmarke', 'briefmarken', 'autogramm', 'signiert', 'sammlerstück'],
     # Musical Instruments
     'Musical Instruments': ['guitar', 'bass', 'piano', 'keyboard', 'drum', 'violin', 'fender',
-                             'gibson', 'marshall', 'amp', 'amplifier', 'saxophone'],
+                             'gibson', 'marshall', 'amp', 'amplifier', 'saxophone',
+                             # DE
+                             'gitarre', 'schlagzeug', 'geige', 'klavier', 'saxophon', 'verstärker'],
     # Books & Media
-    'Books & Media': ['book', 'dvd', 'blu-ray', 'vinyl', 'record', 'magazine', 'novel', 'textbook'],
+    'Books & Media': ['book', 'dvd', 'blu-ray', 'vinyl', 'record', 'magazine', 'novel', 'textbook',
+                       # DE
+                       'buch', 'bücher', 'schallplatte', 'zeitschrift', 'roman', 'lehrbuch'],
 }
 
 COMPETITOR_MAP = {
@@ -138,7 +176,7 @@ QUADRANT_INFO = {
     '右上': {
         'label': '高ASP + 垂直',
         'strategy': 'PLP手动 + PLP自动 + OA',
-        'reason': '高利润支撑CPC，垂直品类关键词集中；手动词精准控ACOS，自动词补长尾，OA引外站高价流量',
+        'reason': '高利润支撑CPC，垂直品类关键词集中；手动词精准控ROAS，自动词补长尾，OA引外站高价流量',
     },
     '左上': {
         'label': '高ASP + 铺货',
@@ -155,6 +193,37 @@ QUADRANT_INFO = {
         'strategy': 'PLG + OA',
         'reason': 'CPC几乎无利润空间；PLG按出单付费控风险，OA整店维度推广补充站外曝光',
     },
+}
+
+QUADRANT_CHECKLIST = {
+    '右上': [
+        ('开启 PLG，费率设 2-3%', '高单价低费率，绝对出价已具竞争力，先用 CPS 覆盖全店 SKU 保底曝光'),
+        ('同步开启 PLP 手动广告组', '高利润空间支撑 CPC，从下方关键词表选 10-15 个核心词直接投放，无需等验证'),
+        ('开启 PLP 自动（Smart Targeting）', '补充手动词覆盖不到的长尾搜索，无需选词，系统自动匹配买家意图'),
+        ('运行 2 周后优化关键词', '暂停 ROAS < 4x 的词；对 ROAS > 10x 的高效词适当提高出价'),
+        ('开启 OA 站外推广', '高单价品类值得引入谷歌/Meta 流量，拉新效果明显，整店或单品维度均可'),
+    ],
+    '左上': [
+        ('开启 PLG，费率设 2-3%', '高单价低费率足够竞争，全量覆盖多品类 SKU，避免手动逐一管理'),
+        ('筛选高单价商品，单开 Smart Targeting 广告组', '不适合全量手动选词，让系统自动抢高意向流量，重点放在高单价 SKU'),
+        ('观察 2 周，找到出单集中的品类', '确认哪些品类/商品真正有转化，再决定是否追加预算'),
+        ('对出单集中品类补充 1-2 个手动关键词组', '不建议大规模手动维词，仅对已验证的高价品类精准补充'),
+        ('开启 OA 整店推广', '品类杂难以单品精准，OA 整店维度在谷歌/Meta 提升整体曝光'),
+    ],
+    '右下': [
+        ('先开 PLG，费率设 5-8%', '低单价需要较高费率维持绝对出价竞争力，CPS 零风险先摸底哪些 listing 能卖'),
+        ('等 2-3 周，找到出单稳定的爆款（≥3 单）', '不急着开 CPC，有出单数据才知道哪些商品值得花广告费'),
+        ('对爆款开 PLP 手动广告组', '只对已验证爆款投放，从关键词表选 5-8 个核心词，控制 ROAS ≥ 5x'),
+        ('开启 PLP 自动补充长尾流量', '手动词跑稳后再开 Smart Targeting，避免在验证阶段分散预算'),
+        ('持续监控 ROAS，不盈利立刻暂停', '低单价广告容错率极低，ROAS 低于 5x 立刻停词复盘，不要让亏损持续'),
+    ],
+    '左下': [
+        ('只开 PLG，费率设 5-8%', '铺货低价型 CPC 几乎没有利润空间，CPS 按出单付费是唯一可持续的广告模式'),
+        ('不建议开启 PLP 手动广告', '低单价 CPC 风险极高，除非有单品 ROAS 历史数据支撑，否则避免开启'),
+        ('等 3-4 周，观察哪些商品出单率最高', '用 PLG 数据筛选真正有转化潜力的 SKU，为下一步做准备'),
+        ('对出单最好的 listing 单独提高 PLG 费率', '将优质 listing 单独建广告组，适当提高费率抢占更多曝光位'),
+        ('开启 OA 整店推广补充站外曝光', '整店维度在谷歌/Meta 引流，弥补站内竞争激烈导致的曝光不足'),
+    ],
 }
 
 # eBay brand colors: Blue #0064D2 / Green #86B817 / Yellow #F5AF02 / Red #E53238
@@ -174,24 +243,24 @@ QUADRANT_COLOR = {
 # (name, pct, hex_color, description_zh)
 QUADRANT_ALLOCATION = {
     '右上': [
-        ('PLP手动', 50, _EBAY_GREEN,  '精准关键词控ACOS，高利润品类主力'),
-        ('PLP自动', 30, _EBAY_YELLOW, 'Smart Targeting补长尾流量'),
-        ('PLG',    10, _EBAY_BLUE,   'CPS全量兜底覆盖'),
-        ('OA',     10, _EBAY_RED,    '引外站高价值买家'),
+        ('PLG',    30, _EBAY_BLUE,   '核心流量基础盘——高单价只需 2-3% 低费率，绝对出价已具竞争力，CPS兜底全量SKU'),
+        ('PLP手动', 40, _EBAY_GREEN,  '高单价有利润空间支撑CPC，精准关键词直控ROAS，卡位高意向买家'),
+        ('PLP自动', 20, _EBAY_YELLOW, 'Smart Targeting补齐手动词覆盖不到的长尾搜索，运营省力'),
+        ('OA',     10, _EBAY_RED,    '高客单价值得引站外流量——谷歌/Meta精准触达已在比价的买家'),
     ],
     '左上': [
-        ('PLG',    50, _EBAY_BLUE,   'CPS全量覆盖，多品类SKU必选'),
-        ('PLP自动', 30, _EBAY_YELLOW, '高价品Smart Targeting精准抢量'),
-        ('OA',     20, _EBAY_RED,    '整店站外推广'),
+        ('PLG',    50, _EBAY_BLUE,   '核心流量基础盘——高单价设低费率（2-3%）绝对出价即可竞争，CPS全量覆盖多品类SKU'),
+        ('PLP自动', 20, _EBAY_YELLOW, '高单价品专项投放——Smart Targeting自动锁定高意向流量，不用逐一选词'),
+        ('OA',     30, _EBAY_RED,    '整店维度站外推广——高ASP品类适合谷歌/Meta引流，拉新ROI可观'),
     ],
     '右下': [
-        ('PLG',    60, _EBAY_BLUE,   'CPS测爆款，低单价低风险起步'),
-        ('PLP手动', 25, _EBAY_GREEN,  '有出单记录的爆款开手动词'),
-        ('PLP自动', 15, _EBAY_YELLOW, 'Smart Targeting补量'),
+        ('PLG',    60, _EBAY_BLUE,   '核心流量基础盘——低单价CPC利润极薄，CPS按出单付费零风险测爆款'),
+        ('PLP手动', 25, _EBAY_GREEN,  '爆款验证后才开手动词——有出单数据支撑再精准卡位，避免盲目烧预算'),
+        ('PLP自动', 15, _EBAY_YELLOW, 'Smart Targeting补充垂直长尾流量，运营时间有限的卖家尤其适用'),
     ],
     '左下': [
-        ('PLG',    80, _EBAY_BLUE,  'CPS按出单付费，铺货首选'),
-        ('OA',     20, _EBAY_RED,   '整店维度站外曝光'),
+        ('PLG',    80, _EBAY_BLUE,   '核心流量基础盘——低单价+铺货型，CPC几乎无利润空间，CPS是唯一可持续选择'),
+        ('OA',     20, _EBAY_RED,    '站外整店曝光兜底——谷歌/Meta引流弥补站内竞争激烈、曝光不足的问题'),
     ],
 }
 
@@ -220,12 +289,13 @@ def extract_seller_id(raw_input: str) -> str:
     return raw.split('/')[-1]
 
 
-def fetch_pages_for_sid(sid: str, sold_filter: str, max_pages: int = 2) -> list[str]:
-    """Fetch listing pages for a seller ID."""
+def fetch_pages_for_sid(sid: str, sold_filter: str, max_pages: int = 2,
+                        base_domain: str = 'www.ebay.com') -> list[str]:
     pages = []
     for page in range(1, max_pages + 1):
-        url = (f"https://www.ebay.com/sch/i.html"
-               f"?_ssn={sid}&_pgn={page}&_ipg=120&_stpos=10001{sold_filter}")
+        stpos = '&_stpos=10001' if base_domain == 'www.ebay.com' else ''
+        url = (f"https://{base_domain}/sch/i.html"
+               f"?_ssn={sid}&_pgn={page}&_ipg=120{stpos}{sold_filter}")
         try:
             r = _ebay_get(url, timeout=15)
             pages.append(r.text)
@@ -234,23 +304,24 @@ def fetch_pages_for_sid(sid: str, sold_filter: str, max_pages: int = 2) -> list[
     return pages
 
 
-def fetch_listings_html(seller_id: str) -> tuple[list[str], str]:
+def fetch_listings_html(seller_id: str, base_domain: str = 'www.ebay.com',
+                        currency: str = '$') -> tuple[list[str], str]:
     """Fetch sold + current listings. Probe response is reused as first current page."""
     candidates = [seller_id, seller_id.replace('-', ''), seller_id.replace('_', '')]
     candidates = list(dict.fromkeys(candidates))
+    stpos = '&_stpos=10001' if base_domain == 'www.ebay.com' else ''
 
     working_sid = None
     probe_html = None
     for sid in candidates:
-        url = f"https://www.ebay.com/sch/i.html?_ssn={sid}&_pgn=1&_ipg=120&_stpos=10001"
+        url = f"https://{base_domain}/sch/i.html?_ssn={sid}&_pgn=1&_ipg=120{stpos}"
         try:
             r = _ebay_get(url, timeout=15)
-            raw = re.findall(r'\$([0-9][0-9,]*\.?[0-9]*)', r.text)
-            prices = [float(p.replace(',', '')) for p in raw if 0.99 < float(p.replace(',', '')) < 50000]
+            prices = parse_prices(r.text, currency)
             has_listings = bool(re.search(r'/itm/\d+', r.text))
             if len(prices) >= 1 or has_listings:
                 working_sid = sid
-                probe_html = r.text  # reuse as current page 1 — saves 1 request
+                probe_html = r.text
                 break
         except:
             pass
@@ -258,25 +329,33 @@ def fetch_listings_html(seller_id: str) -> tuple[list[str], str]:
     if not working_sid:
         return [], '无数据'
 
-    # 2 pages sold + probe already covers current page 1 (no extra current request needed)
-    sold_pages = fetch_pages_for_sid(working_sid, '&LH_Complete=1&LH_Sold=1', max_pages=2)
-    all_pages = sold_pages + [probe_html]
-
-    return all_pages, '已售出 + 当前在售'
+    sold_pages = fetch_pages_for_sid(working_sid, '&LH_Complete=1&LH_Sold=1',
+                                     max_pages=2, base_domain=base_domain)
+    return sold_pages + [probe_html], '已售出 + 当前在售'
 
 
-def parse_prices(html: str) -> list[float]:
+def parse_prices(html: str, currency: str = '$') -> list[float]:
     """Extract listing prices, filtering out UI slider/repeated values."""
-    raw = re.findall(r'\$([0-9][0-9,]*\.?[0-9]*)', html)
+    if currency == '€':
+        # German format: "129,99 €" — convert comma-decimal to dot
+        raw_eur = re.findall(r'([0-9][0-9\.]*,[0-9]{2})\s*€', html)
+        raw = [p.replace('.', '').replace(',', '.') for p in raw_eur]
+        raw += re.findall(r'€\s*([0-9][0-9,]*\.?[0-9]*)', html)
+    elif currency == '£':
+        raw = re.findall(r'£([0-9][0-9,]*\.?[0-9]*)', html)
+    else:
+        raw = re.findall(r'\$([0-9][0-9,]*\.?[0-9]*)', html)
+    # JSON extraction is currency-agnostic — works for all sites
+    raw += re.findall(r'"(?:convertedCurrentPrice|currentPrice|price|amount)"\s*:\s*\{[^}]*"value"\s*:\s*([0-9]+\.?[0-9]*)', html, re.I)
+    raw += re.findall(r'"(?:price|currentPrice)"\s*:\s*"([0-9][0-9,]*\.?[0-9]*)"', html, re.I)
     all_vals = []
     for p in raw:
         try:
-            v = float(p.replace(',', ''))
+            v = float(str(p).replace(',', ''))
             if 0.99 < v < 50000:
                 all_vals.append(v)
         except:
             pass
-    # Filter values that appear 4+ times on a single page (UI elements like sliders)
     from collections import Counter
     freq = Counter(all_vals)
     return [v for v in all_vals if freq[v] < 4]
@@ -331,12 +410,12 @@ def extract_product_images(html: str, n: int = 2) -> list[str]:
     return urls
 
 
-def fetch_product_images_from_search(seller_id: str, n: int = 2) -> list[str]:
-    """Fetch product thumbnails from seller's search results (not store page)."""
+def fetch_product_images_from_search(seller_id: str, n: int = 2,
+                                     base_domain: str = 'www.ebay.com') -> list[str]:
     for sid in [seller_id, seller_id.replace('_', '')]:
         try:
             r = _ebay_get(
-                f"https://www.ebay.com/sch/i.html?_ssn={sid}&_pgn=1&_ipg=10",
+                f"https://{base_domain}/sch/i.html?_ssn={sid}&_pgn=1&_ipg=10",
                 timeout=10)
             imgs = extract_product_images(r.text, n)
             if imgs:
@@ -346,11 +425,10 @@ def fetch_product_images_from_search(seller_id: str, n: int = 2) -> list[str]:
     return []
 
 
-def fetch_store_titles(seller_id: str) -> tuple[list[str], list[str]]:
-    """Fetch /str/ store page — returns (titles, image_urls)."""
+def fetch_store_titles(seller_id: str, base_domain: str = 'www.ebay.com') -> tuple[list[str], list[str]]:
     for sid in [seller_id, seller_id.replace('-', ''), seller_id.replace('_', '')]:
         try:
-            r = _ebay_get(f"https://www.ebay.com/str/{sid}", timeout=15)
+            r = _ebay_get(f"https://{base_domain}/str/{sid}", timeout=15)
             titles = extract_titles(r.text)
             imgs = extract_product_images(r.text)
             if len(titles) >= 3:
@@ -361,18 +439,19 @@ def fetch_store_titles(seller_id: str) -> tuple[list[str], list[str]]:
     return [], []
 
 
-def fetch_total_listing_count(seller_id: str) -> str:
-    """Fetch real total listing count from eBay search page."""
+def fetch_total_listing_count(seller_id: str, base_domain: str = 'www.ebay.com') -> str:
     try:
         r = _ebay_get(
-            f"https://www.ebay.com/sch/i.html?_ssn={seller_id}&_pgn=1&_ipg=1",
+            f"https://{base_domain}/sch/i.html?_ssn={seller_id}&_pgn=1&_ipg=1",
             timeout=10)
         text = r.text
         for pattern in [
             r'([\d,]+\+?)\s*results?',
             r'"totalEntries"\s*:\s*(\d+)',
+            r'"totalCount"\s*:\s*(\d+)',
             r'srp-controls__count[^>]*>\s*([\d,]+)',
             r'(\d[\d,]*)\s+item[s]?\s+found',
+            r'of\s+([\d,]+)\s+results',
         ]:
             m = re.search(pattern, text, re.I)
             if m:
@@ -382,23 +461,23 @@ def fetch_total_listing_count(seller_id: str) -> str:
     return ''
 
 
-def scrape_store(raw_input: str) -> dict:
+def scrape_store(raw_input: str, base_domain: str = 'www.ebay.com',
+                 currency: str = '$') -> dict:
     seller_id = extract_seller_id(raw_input)
     all_prices = []
     all_titles = []
 
-    pages, data_source = fetch_listings_html(seller_id)
+    pages, data_source = fetch_listings_html(seller_id, base_domain=base_domain, currency=currency)
     image_urls = []
     for html in pages:
-        all_prices += parse_prices(html)
+        all_prices += parse_prices(html, currency)
         all_titles += extract_titles(html)
         if not image_urls:
             image_urls = extract_product_images(html, n=2)
 
-    # Fetch real total from search page (try clean ID if underscore version gives nothing)
-    total_count_str = fetch_total_listing_count(seller_id)
+    total_count_str = fetch_total_listing_count(seller_id, base_domain=base_domain)
     if not total_count_str and '_' in seller_id:
-        total_count_str = fetch_total_listing_count(seller_id.replace('_', ''))
+        total_count_str = fetch_total_listing_count(seller_id.replace('_', ''), base_domain=base_domain)
 
     category = infer_category(all_titles)
     vertical_score = compute_vertical_score(all_titles, category)
@@ -468,7 +547,15 @@ def compute_vertical_score(titles: list, category: str) -> float:
     top3_freqs = [freq for _, freq in word_doc_freq.most_common(3)]
     avg_top3 = sum(top3_freqs) / len(top3_freqs) if top3_freqs else 0
     concentration = avg_top3 / n
-    score_a = 1 + 9 * min(concentration / 0.5, 1.0)
+    # Stepped scoring: ≥80% highly vertical, ≥50% vertical, ≥30% weakly vertical, <30% broad
+    if concentration >= 0.80:
+        score_a = 10.0
+    elif concentration >= 0.50:
+        score_a = 8.0
+    elif concentration >= 0.30:
+        score_a = 5.0
+    else:
+        score_a = round(1 + 4 * (concentration / 0.30), 1)  # 1–4, clearly broad
 
     # ── Signal B: category keyword coverage (category vertical) ──
     score_b = score_a  # default: same as A if no category match
@@ -477,8 +564,14 @@ def compute_vertical_score(titles: list, category: str) -> float:
                    if ' ' not in k and len(k) >= 4}
         titles_with_cat_kw = sum(1 for ws in title_word_sets if ws & cat_kws)
         cat_coverage = titles_with_cat_kw / n
-        # 45% of titles containing a category keyword → near-max score
-        score_b = 1 + 9 * min(cat_coverage / 0.45, 1.0)
+        if cat_coverage >= 0.80:
+            score_b = 10.0
+        elif cat_coverage >= 0.50:
+            score_b = 8.0
+        elif cat_coverage >= 0.30:
+            score_b = 5.0
+        else:
+            score_b = round(1 + 4 * (cat_coverage / 0.30), 1)
 
     return round(max(score_a, score_b), 1)
 
@@ -630,9 +723,9 @@ SYNONYM_MAP = {
     'coffee': ['espresso', 'java'],
 }
 
-def fetch_ebay_suggestions(q: str) -> list:
+def fetch_ebay_suggestions(q: str, autosug_domain: str = 'autosug.ebay.com') -> list:
     try:
-        r = requests.get(f"https://autosug.ebay.com/autosug?sId=0&kwd={requests.utils.quote(q)}",
+        r = requests.get(f"https://{autosug_domain}/autosug?sId=0&kwd={requests.utils.quote(q)}",
                          headers=HEADERS, timeout=8)
         # API returns JSONP: /**/vjo...AutoFill._do({...})
         m = re.search(r'\._do\((.+)\)\s*$', r.text.strip())
@@ -869,6 +962,8 @@ def is_valid_kw(kw: str) -> bool:
         return False
     if len(kw.split()) < 2 and len(kw) < 6:
         return False
+    if len(kw.split()) > 4:  # 超过4个词搜索概率极低，不推荐
+        return False
     return True
 
 
@@ -883,16 +978,16 @@ def _get_synonym_seeds(seeds: list) -> list:
     return syn_seeds[:2]
 
 
-def _fetch_kw_candidates(seeds: list, titles: list) -> tuple:
+def _fetch_kw_candidates(seeds: list, titles: list,
+                         autosug_domain: str = 'autosug.ebay.com') -> tuple:
     """Network-only step: fetch autocomplete from eBay / Amazon / Walmart.
-    Returns (candidates_dict, synonym_kws_set).
-    Google excluded — its autocomplete reflects general web searches, not purchase intent."""
+    Returns (candidates_dict, synonym_kws_set)."""
     all_kws: dict = {}
-    _sources = [('eBay', fetch_ebay_suggestions),
+    _ebay_fn = lambda q: fetch_ebay_suggestions(q, autosug_domain)
+    _sources = [('eBay', _ebay_fn),
                 ('Amazon', fetch_amazon_suggestions),
                 ('Walmart', fetch_walmart_suggestions)]
 
-    # Regular seeds
     for seed in seeds:
         for source, fn in _sources:
             for kw in fn(seed)[:20]:
@@ -903,7 +998,6 @@ def _fetch_kw_candidates(seeds: list, titles: list) -> tuple:
                     all_kws[kw] = set()
                 all_kws[kw].add(source)
 
-    # Synonym seeds
     synonym_kws: set = set()
     for seed in _get_synonym_seeds(seeds):
         for source, fn in _sources:
@@ -985,7 +1079,7 @@ def get_keywords(category: str, asp: float, seller_id: str, titles: list = None,
 
 # ── PLG Ad Groups ─────────────────────────────────────────────────────────────
 
-def get_plg_groups(prices: list, seller_id: str, T: dict = None) -> pd.DataFrame:
+def get_plg_groups(prices: list, seller_id: str, T: dict = None, currency: str = '$') -> pd.DataFrame:
     if T is None:
         T = TRANSLATIONS['zh']
     if not prices:
@@ -1004,7 +1098,7 @@ def get_plg_groups(prices: list, seller_id: str, T: dict = None) -> pd.DataFrame
         if count == 0:
             continue
         hi_str = str(hi) if hi < 99999 else '+'
-        name = f"{seller_id}_${lo}-{hi_str}_{rate}%"
+        name = f"{seller_id}_{currency}{lo}-{hi_str}_{rate}%"
         avg_in_tier = np.mean([p for p in prices if lo < p <= hi])
         abs_bid = avg_in_tier * rate / 100
         if rate >= 10:
@@ -1015,14 +1109,311 @@ def get_plg_groups(prices: list, seller_id: str, T: dict = None) -> pd.DataFrame
             note = T['plg_note_ok']
         rows.append({
             T['plg_col_name']: name,
-            T['plg_col_range']: f'${lo} – ${hi_str}',
+            T['plg_col_range']: f'{currency}{lo} – {currency}{hi_str}',
             T['plg_col_rate']: f'{rate}%',
-            T['plg_col_bid']: f'${abs_bid:.2f}',
+            T['plg_col_bid']: f'{currency}{abs_bid:.2f}',
             T['plg_col_listing']: count,
             T['plg_col_note']: note,
         })
 
     return pd.DataFrame(rows)
+
+
+EBAY_SITES = {
+    'eBay US': {'domain': 'www.ebay.com',    'currency': '$'},
+    'eBay UK': {'domain': 'www.ebay.co.uk',  'currency': '£'},
+    'eBay DE': {'domain': 'www.ebay.de',     'currency': '€'},
+    'eBay AU': {'domain': 'www.ebay.com.au', 'currency': 'A$'},
+}
+
+# ── Report Analysis ───────────────────────────────────────────────────────────
+
+def _clean_currency(series):
+    return pd.to_numeric(
+        series.astype(str).str.replace(r'[\$,\s]', '', regex=True),
+        errors='coerce'
+    ).fillna(0)
+
+
+def _detect_report_type(df):
+    cols = set(df.columns)
+    if 'Search Query' in cols:
+        return 'search_query'
+    elif 'Title' in cols and 'Item ID' in cols:
+        return 'listing'
+    elif 'Seller Keyword' in cols:
+        return 'keyword'
+    return None
+
+
+def _detect_brand_words(df: pd.DataFrame, query_col: str = 'Search Query',
+                        impr_col: str = 'Impressions', top_n: int = 200) -> set:
+    from collections import Counter
+    _stop = {
+        # Articles / prepositions
+        'the', 'for', 'and', 'with', 'from', 'into', 'onto', 'over',
+        # Condition
+        'new', 'used', 'oem', 'original', 'genuine', 'authentic', 'compatible',
+        'replacement', 'refurbished', 'aftermarket', 'universal',
+        # Colors
+        'black', 'white', 'blue', 'red', 'green', 'pink', 'gray', 'grey',
+        'purple', 'yellow', 'orange', 'silver', 'gold', 'brown', 'beige',
+        # Sizes / quantities
+        'small', 'medium', 'large', 'size', 'pack', 'lot', 'set', 'kit',
+        'pair', 'piece', 'pcs', 'qty', 'bulk', 'mini', 'plus', 'pro', 'max',
+        # Demographics
+        'men', 'women', 'kids', 'adult', 'unisex', 'girls', 'boys',
+        # Common descriptors
+        'fit', 'fits', 'slim', 'thin', 'wide', 'long', 'short', 'flat',
+        'sport', 'sports', 'outdoor', 'indoor', 'wireless', 'bluetooth',
+        # Product generics (things that are NEVER a brand alone)
+        'band', 'strap', 'case', 'cover', 'screen', 'charger', 'cable',
+        'holder', 'stand', 'mount', 'clip', 'hook', 'ring', 'clip',
+        'watch', 'phone', 'tablet', 'laptop', 'bag', 'pouch', 'wallet',
+        'tool', 'part', 'parts', 'accessory', 'accessories',
+    }
+    top = df.nlargest(top_n, impr_col) if impr_col in df.columns else df.head(top_n)
+    word_counts: Counter = Counter()
+    for q in top[query_col].dropna().astype(str):
+        for w in q.lower().split():
+            if len(w) > 2 and w not in _stop and not re.match(r'^[\d\.]+$', w):
+                word_counts[w] += 1
+    if not word_counts:
+        return set()
+    # Count how often each word appears as the FIRST word in a query
+    first_counts: Counter = Counter()
+    for q in top[query_col].dropna().astype(str):
+        first = q.lower().split()[0] if q.strip() else ''
+        if first and len(first) > 2 and first not in _stop and not re.match(r'^[\d\.]+$', first):
+            first_counts[first] += 1
+    total_top = len(top)
+    brand_words = set()
+    for w, cnt in word_counts.items():
+        freq_ratio = cnt / total_top          # overall frequency
+        first_ratio = first_counts[w] / total_top  # first-position ratio
+        # Brand = high overall frequency AND dominates as first word
+        if freq_ratio >= 0.20 and first_ratio >= 0.50:
+            brand_words.add(w)
+    return brand_words
+
+
+def _classify_query_simple(query: str, brand_words: set = None) -> str:
+    q = str(query).lower()
+    words = q.split()
+    brand_words = brand_words or set()
+    has_spec = bool(re.search(r'\d+\s?(w|v|mph|km|inch|lb|kg|cm|oz|speed|mm|gb|tb|mp)', q))
+    scenario_words = ['for', 'commut', 'gift', 'adult', 'beginner', 'indoor', 'outdoor',
+                      'offroad', 'wedding', 'desk', 'office', 'kids', 'women', 'men',
+                      'cheap', 'best', 'review', 'buy']
+    is_scenario = any(w in q for w in scenario_words)
+    contains_brand = any(bw in words for bw in brand_words)
+    if contains_brand:
+        return '品牌词'
+    elif has_spec:
+        return '规格词'
+    elif is_scenario:
+        return '场景词'
+    elif len(words) == 1:
+        return '品类核心词'
+    else:
+        return '核心词'
+
+
+def _add_action_labels(df: pd.DataFrame) -> pd.DataFrame:
+    if 'Impressions' not in df.columns:
+        return df
+    impr_p75 = df['Impressions'].quantile(0.75)
+    click_p75 = df['Clicks'].quantile(0.75) if 'Clicks' in df.columns else 0
+    # Reliable ROAS computed from cleaned columns
+    if 'Ad fees ($)' in df.columns and 'Sales ($)' in df.columns:
+        df['_roas_calc'] = np.where(df['Ad fees ($)'] > 0,
+                                    df['Sales ($)'] / df['Ad fees ($)'], 0)
+    else:
+        df['_roas_calc'] = 0
+
+    def _label(row):
+        impr  = row.get('Impressions', 0)
+        clicks= row.get('Clicks', 0)
+        sold  = row.get('Sold quantity', 0)
+        spend = row.get('Ad fees ($)', 0)
+        roas  = row.get('_roas_calc', 0)
+        if sold > 0 and roas >= 2:
+            return '🟢 加大出价'
+        if spend > 0.5 and sold == 0:
+            return '🔴 建议暂停'
+        if clicks >= click_p75 and clicks > 0 and sold == 0:
+            return '🟡 检查详情页'
+        if impr >= impr_p75 and clicks == 0:
+            return '🔵 提升出价'
+        return '⚪ 继续观察'
+
+    df['建议'] = df.apply(_label, axis=1)
+    df.drop(columns=['_roas_calc'], inplace=True, errors='ignore')
+    return df
+
+
+def _render_report_section(T: dict, key_suffix: str = ''):
+    st.subheader(T.get('report_title', '📊 广告报告分析'))
+    st.caption(T.get('report_caption', '上传 eBay 广告报告 CSV（Search Query / Keyword / Listing），自动识别类型并高亮关键数据'))
+
+    uploaded = st.file_uploader(
+        T.get('report_upload_label', '拖拽或选择 CSV 文件'),
+        type=['csv'],
+        key=f'report_upload_{key_suffix}',
+        label_visibility='collapsed',
+    )
+
+    if uploaded is None:
+        return
+
+    try:
+        df = pd.read_csv(uploaded, skiprows=2, encoding='utf-8-sig')
+    except Exception:
+        uploaded.seek(0)
+        df = pd.read_csv(uploaded, skiprows=2, encoding='latin-1')
+
+    df.columns = df.columns.str.strip()
+    report_type = _detect_report_type(df)
+
+    if report_type is None:
+        st.error(T.get('report_error_type', '无法识别报告类型，请确认是 Search Query / Keyword / Listing 报告'))
+        return
+
+    # Clean numeric columns
+    for orig, alias, is_pct in [
+        ('Impressions', 'Impressions', False),
+        ('Clicks', 'Clicks', False),
+        ('Sold quantity', 'Sold quantity', False),
+        ('Ad fees (in billing currency)', 'Ad fees ($)', False),
+        ('Sales (in billing currency)', 'Sales ($)', False),
+        ('CTR', 'CTR%', True),
+        ('Conversion rate (Sold quantity/Clicks)', 'CVR%', True),
+        ('Return on Ad spend (Sales/Ad fees)', 'ROAS', False),
+        ('Average cost per click (in billing currency)', 'Avg CPC ($)', False),
+    ]:
+        if orig not in df.columns:
+            continue
+        raw = df[orig].astype(str).str.replace(r'[\$,\s%]', '', regex=True)
+        df[alias] = pd.to_numeric(raw, errors='coerce').fillna(0)
+
+    # Report type badge
+    type_labels = {
+        'search_query': ('🔍 Search Query Report', '#1a5aab'),
+        'keyword':      ('🔑 Keyword Report', '#2d6a4f'),
+        'listing':      ('📦 Listing Report', '#7b2d8b'),
+    }
+    lbl, lbl_color = type_labels[report_type]
+    st.markdown(
+        f'<span style="background:{lbl_color};color:white;padding:4px 14px;'
+        f'border-radius:4px;font-size:0.85em;font-weight:700;">{lbl}</span>',
+        unsafe_allow_html=True
+    )
+    st.markdown('')
+
+    # Summary metrics
+    total_impr  = int(df['Impressions'].sum()) if 'Impressions' in df.columns else 0
+    total_clicks= int(df['Clicks'].sum())      if 'Clicks' in df.columns else 0
+    total_sold  = int(df['Sold quantity'].sum())if 'Sold quantity' in df.columns else 0
+    total_spend = df['Ad fees ($)'].sum()      if 'Ad fees ($)' in df.columns else 0
+    total_sales = df['Sales ($)'].sum()        if 'Sales ($)' in df.columns else 0
+    roas_overall = (total_sales / total_spend) if total_spend > 0 else 0
+
+    _mc = st.columns(6)
+    _mc[0].metric(T.get('report_metric_impr', '曝光'), f'{total_impr:,}')
+    _mc[1].metric(T.get('report_metric_clicks', '点击'), f'{total_clicks:,}')
+    _mc[2].metric(T.get('report_metric_sold', '出单'), f'{total_sold:,}')
+    _mc[3].metric(T.get('report_metric_spend', '花费'), f'${total_spend:,.2f}')
+    _mc[4].metric(T.get('report_metric_sales', '销售额'), f'${total_sales:,.2f}')
+    _mc[5].metric('ROAS', f'{roas_overall:.2f}x')
+
+    # Filter eBay's consolidated placement row
+    _consolidated = 'Consolidated data from placements across eBay'
+    for _id in ('Search Query', 'Seller Keyword', 'Title'):
+        if _id in df.columns:
+            df = df[df[_id].astype(str).str.strip() != _consolidated].copy()
+
+    # Add action labels (always in zh internally)
+    df = _add_action_labels(df)
+
+    # Translation maps for action labels and word types
+    _action_map = {
+        '🟢 加大出价': T.get('report_action_boost', '🟢 加大出价'),
+        '🔴 建议暂停': T.get('report_action_pause', '🔴 建议暂停'),
+        '🟡 检查详情页': T.get('report_action_check', '🟡 检查详情页'),
+        '🔵 提升出价': T.get('report_action_raise', '🔵 提升出价'),
+        '⚪ 继续观察': T.get('report_action_watch', '⚪ 继续观察'),
+    }
+    _type_map = {
+        '品牌词': T.get('report_type_brand', '品牌词'),
+        '规格词': T.get('report_type_spec', '规格词'),
+        '场景词': T.get('report_type_scenario', '场景词'),
+        '核心词': T.get('report_type_core', '核心词'),
+        '品类核心词': T.get('report_type_category', '品类核心词'),
+    }
+    _col_suggest = T.get('report_col_suggest', '建议')
+    _col_word_type = T.get('report_col_word_type', '词类型')
+
+    if '建议' in df.columns:
+        df[_col_suggest] = df['建议'].map(_action_map).fillna(df['建议'])
+        if _col_suggest != '建议':
+            df.drop(columns=['建议'], inplace=True)
+
+    # Identifier + type classification
+    if report_type == 'search_query':
+        id_col = 'Search Query'
+        extra_cols = ['Keyword Match Type', 'Seller Keyword']
+        brand_words = _detect_brand_words(df, query_col='Search Query', impr_col='Impressions')
+        df[_col_word_type] = df['Search Query'].apply(
+            lambda q: _type_map.get(_classify_query_simple(q, brand_words), _classify_query_simple(q, brand_words))
+        )
+        show_base = [id_col, _col_word_type, _col_suggest] + [c for c in extra_cols if c in df.columns]
+    elif report_type == 'keyword':
+        id_col = 'Seller Keyword'
+        extra_cols = ['Keyword Match Type', 'Bid']
+        show_base = [id_col, _col_suggest] + [c for c in extra_cols if c in df.columns]
+    else:
+        id_col = 'Title'
+        extra_cols = ['Item ID', 'Price (Current or Last Price)']
+        show_base = [id_col, _col_suggest] + [c for c in extra_cols if c in df.columns]
+
+    display_metrics = [c for c in ['Impressions', 'Clicks', 'Sold quantity',
+                                    'Ad fees ($)', 'Sales ($)', 'CVR%', 'ROAS', 'Avg CPC ($)']
+                       if c in df.columns]
+
+    # ── Summary insights ──
+    insights = []
+    if 'Impressions' in df.columns and total_impr > 0:
+        cum = df.sort_values('Impressions', ascending=False)['Impressions'].cumsum()
+        n80 = int((cum <= total_impr * 0.8).sum()) + 1
+        insights.append(T.get('report_insight_top_n', '**前 {n} 个词** 贡献了 80% 的总曝光').format(n=n80))
+    if _col_suggest in df.columns:
+        _pause_label = T.get('report_action_pause', '🔴 建议暂停')
+        waste = int((df[_col_suggest] == _pause_label).sum())
+        if waste > 0:
+            insights.append(T.get('report_insight_waste', '**{n} 个词** 有花费但 0 出单，建议暂停或降出价').format(n=waste))
+    if report_type == 'search_query' and _col_word_type in df.columns and 'Impressions' in df.columns:
+        top_type = df.groupby(_col_word_type)['Impressions'].sum().idxmax()
+        insights.append(T.get('report_insight_top_type', '曝光主要来自「**{t}**」').format(t=top_type))
+
+    if insights:
+        st.info('  ·  '.join(insights))
+
+    # ── 4 sort-view tabs ──
+    sort_views = [
+        (T.get('report_tab_impr', '📈 曝光最高'), 'Impressions'),
+        (T.get('report_tab_click', '🖱️ 点击最多'), 'Clicks'),
+        (T.get('report_tab_conv', '✅ 转化最好'), 'Sold quantity'),
+        (T.get('report_tab_spend', '💸 花费最多'), 'Ad fees ($)'),
+    ]
+    valid_views = [(lbl2, col) for lbl2, col in sort_views if col in df.columns]
+    tabs = st.tabs([lbl2 for lbl2, _ in valid_views])
+    for tab, (_, sort_col) in zip(tabs, valid_views):
+        with tab:
+            sorted_df = df.sort_values(sort_col, ascending=False).head(20)
+            show_cols = show_base + [c for c in display_metrics if c not in show_base]
+            show_cols = [c for c in show_cols if c in sorted_df.columns]
+            st.dataframe(sorted_df[show_cols].reset_index(drop=True),
+                         use_container_width=True, height=420)
 
 
 # ── Streamlit UI ──────────────────────────────────────────────────────────────
@@ -1104,17 +1495,46 @@ TRANSLATIONS = {
         'axis_vertical': '垂直',
         'quadrant_labels': {'右上': '高ASP + 垂直', '左上': '高ASP + 铺货', '右下': '低ASP + 垂直', '左下': '低ASP + 铺货'},
         'quadrant_reasons': {
-            '右上': '高利润支撑CPC，垂直品类关键词集中；手动词精准控ACOS，自动词补长尾，OA引外站高价流量',
+            '右上': '高利润支撑CPC，垂直品类关键词集中；手动词精准控ROAS，自动词补长尾，OA引外站高价流量',
             '左上': 'SKU多品类杂，手动关键词维护成本极高；PLG全覆盖+Smart Targeting托管高价品，OA整店推广',
             '右下': '低单价CPC风险高；先用PLG测爆款，有出单记录后对爆款单独开手动词，Smart Targeting补量',
             '左下': 'CPC几乎无利润空间；PLG按出单付费控风险，OA整店维度推广补充站外曝光',
         },
+        # Report analysis section
+        'report_title': '📊 广告报告分析',
+        'report_caption': '上传 eBay 广告报告 CSV（Search Query / Keyword / Listing），自动识别类型并高亮关键数据',
+        'report_upload_label': '拖拽或选择 CSV 文件',
+        'report_error_type': '无法识别报告类型，请确认是 Search Query / Keyword / Listing 报告',
+        'report_metric_impr': '曝光',
+        'report_metric_clicks': '点击',
+        'report_metric_sold': '出单',
+        'report_metric_spend': '花费',
+        'report_metric_sales': '销售额',
+        'report_col_word_type': '词类型',
+        'report_col_suggest': '建议',
+        'report_tab_impr': '📈 曝光最高',
+        'report_tab_click': '🖱️ 点击最多',
+        'report_tab_conv': '✅ 转化最好',
+        'report_tab_spend': '💸 花费最多',
+        'report_action_boost': '🟢 加大出价',
+        'report_action_pause': '🔴 建议暂停',
+        'report_action_check': '🟡 检查详情页',
+        'report_action_raise': '🔵 提升出价',
+        'report_action_watch': '⚪ 继续观察',
+        'report_type_brand': '品牌词',
+        'report_type_spec': '规格词',
+        'report_type_scenario': '场景词',
+        'report_type_core': '核心词',
+        'report_type_category': '品类核心词',
+        'report_insight_top_n': '**前 {n} 个词** 贡献了 80% 的总曝光',
+        'report_insight_waste': '**{n} 个词** 有花费但 0 出单，建议暂停或降出价',
+        'report_insight_top_type': '曝光主要来自「**{t}**」',
     },
     'en': {
         # Page
         'page_title': 'eBay Ads Strategy Dashboard',
         'title': 'eBay Ads Strategy Dashboard',
-        'subtitle': 'Enter a seller ID to analyze the store and generate ad strategy recommendations based on <b>sold listings</b>',
+        'subtitle': 'Enter a seller ID to analyze the store and generate personalized ad strategy recommendations',
         'input_placeholder': 'Enter eBay seller ID, e.g. XXXX',
         'analyze_btn': 'Analyze',
         'spinner_analyze': 'Analyzing store: {sid}...',
@@ -1172,6 +1592,10 @@ TRANSLATIONS = {
         'plg_note_high': 'Higher rate compensates for low unit price',
         'plg_note_ok': 'Absolute bid already competitive',
         'plg_note_plp': 'Low rate saves budget — pair with PLP keyword ads',
+        # KW section — quadrant-based gating
+        'kw_no_kw_msg': 'This seller is a low-ASP broad catalog type — CPC costs can easily erode margins.\n\n**Recommended Strategy:** Start with **PLG (Promoted Listings General)** to find winners, then use **Smart Targeting** to automatically match buyer intent — no manual keywords needed.',
+        'kw_highval_note': '⚠️ For broad catalog sellers, only run PLP keyword ads on high-value items (≥ $${asp}). Use Smart Targeting for everything else.',
+        'kw_copy_expander': '📋 Click to expand — copy all keywords',
         # Chart (ASCII only — matplotlib cannot render Devanagari or CJK without extra fonts)
         'chart_title': 'eBay Ads Strategy Quadrant',
         'axis_asp_high': 'High ASP (>$100)',
@@ -1188,12 +1612,41 @@ TRANSLATIONS = {
             '右下': 'CPC risk is high; build sales history with PLS first, add Smart Targeting for model/category terms',
             '左下': 'CPC hurts margin; broad catalog is hard to target precisely — use PLS to find winners',
         },
+        # Report analysis section
+        'report_title': '📊 Ad Report Analysis',
+        'report_caption': 'Upload eBay ad report CSV (Search Query / Keyword / Listing) — auto-detects type and highlights key data',
+        'report_upload_label': 'Drag or select a CSV file',
+        'report_error_type': 'Unable to identify report type. Please confirm it is a Search Query / Keyword / Listing report.',
+        'report_metric_impr': 'Impressions',
+        'report_metric_clicks': 'Clicks',
+        'report_metric_sold': 'Orders',
+        'report_metric_spend': 'Spend',
+        'report_metric_sales': 'Sales',
+        'report_col_word_type': 'Word Type',
+        'report_col_suggest': 'Suggestion',
+        'report_tab_impr': '📈 Top Impressions',
+        'report_tab_click': '🖱️ Top Clicks',
+        'report_tab_conv': '✅ Top Conversions',
+        'report_tab_spend': '💸 Top Spend',
+        'report_action_boost': '🟢 Increase Bid',
+        'report_action_pause': '🔴 Pause',
+        'report_action_check': '🟡 Check Listing',
+        'report_action_raise': '🔵 Raise Bid',
+        'report_action_watch': '⚪ Monitor',
+        'report_type_brand': 'Brand',
+        'report_type_spec': 'Spec',
+        'report_type_scenario': 'Use Case',
+        'report_type_core': 'Core Product',
+        'report_type_category': 'Category',
+        'report_insight_top_n': '**Top {n} term(s)** account for 80% of total impressions',
+        'report_insight_waste': '**{n} term(s)** have spend but 0 sales — consider pausing or lowering bids',
+        'report_insight_top_type': 'Most impressions from 「**{t}**」',
     },
     'hi': {
         # Page
         'page_title': 'eBay विज्ञापन रणनीति डैशबोर्ड',
         'title': 'eBay विज्ञापन रणनीति डैशबोर्ड',
-        'subtitle': 'विक्रेता ID दर्ज करें — <b>बिके हुए उत्पादों</b> के आधार पर स्टोर विश्लेषण और विज्ञापन सुझाव',
+        'subtitle': 'विक्रेता ID दर्ज करें — स्टोर विश्लेषण और विशेष विज्ञापन रणनीति सुझाव प्राप्त करें',
         'input_placeholder': 'eBay विक्रेता ID दर्ज करें, जैसे XXXX',
         'analyze_btn': 'विश्लेषण करें',
         'spinner_analyze': '{sid} का स्टोर विश्लेषण हो रहा है...',
@@ -1251,6 +1704,10 @@ TRANSLATIONS = {
         'plg_note_high': 'उच्च दर कम मूल्य की भरपाई करती है',
         'plg_note_ok': 'बोली पहले से प्रतिस्पर्धी है',
         'plg_note_plp': 'कम दर बजट बचाती है — PLP कीवर्ड विज्ञापन के साथ उपयोग करें',
+        # KW section — quadrant-based gating
+        'kw_no_kw_msg': 'यह विक्रेता कम ASP वाला broad catalog प्रकार है — CPC लागत मुनाफे को नुकसान पहुंचा सकती है।\n\n**अनुशंसित रणनीति:** पहले **PLG** से विजेता लिस्टिंग खोजें, फिर **Smart Targeting** से खरीदार इरादे से स्वचालित मिलान करें — मैनुअल कीवर्ड की जरूरत नहीं।',
+        'kw_highval_note': '⚠️ Broad catalog विक्रेताओं के लिए केवल उच्च मूल्य उत्पादों (≥ $${asp}) पर PLP कीवर्ड विज्ञापन चलाएं। बाकी के लिए Smart Targeting उपयोग करें।',
+        'kw_copy_expander': '📋 क्लिक करके खोलें — सभी कीवर्ड कॉपी करें',
         # Chart — use ASCII/English to avoid font rendering issues in matplotlib
         'chart_title': 'eBay Ads Strategy Quadrant',
         'axis_asp_high': 'High ASP (>$100)',
@@ -1267,6 +1724,35 @@ TRANSLATIONS = {
             '右下': 'CPC जोखिम अधिक; पहले PLS से बिक्री बनाएं, फिर Smart Targeting',
             '左下': 'CPC मार्जिन को नुकसान पहुंचाता है; PLS से विजेता खोजें',
         },
+        # Report analysis section
+        'report_title': '📊 विज्ञापन रिपोर्ट विश्लेषण',
+        'report_caption': 'eBay विज्ञापन रिपोर्ट CSV अपलोड करें (Search Query / Keyword / Listing) — प्रकार स्वत: पहचाने और प्रमुख डेटा हाइलाइट करें',
+        'report_upload_label': 'CSV फ़ाइल खींचें या चुनें',
+        'report_error_type': 'रिपोर्ट प्रकार पहचानने में विफल। कृपया पुष्टि करें कि यह Search Query / Keyword / Listing रिपोर्ट है।',
+        'report_metric_impr': 'इंप्रेशन',
+        'report_metric_clicks': 'क्लिक',
+        'report_metric_sold': 'ऑर्डर',
+        'report_metric_spend': 'खर्च',
+        'report_metric_sales': 'बिक्री',
+        'report_col_word_type': 'शब्द प्रकार',
+        'report_col_suggest': 'सुझाव',
+        'report_tab_impr': '📈 सर्वाधिक इंप्रेशन',
+        'report_tab_click': '🖱️ सर्वाधिक क्लिक',
+        'report_tab_conv': '✅ सर्वाधिक रूपांतरण',
+        'report_tab_spend': '💸 सर्वाधिक खर्च',
+        'report_action_boost': '🟢 बोली बढ़ाएं',
+        'report_action_pause': '🔴 रोकें',
+        'report_action_check': '🟡 लिस्टिंग जांचें',
+        'report_action_raise': '🔵 बोली उठाएं',
+        'report_action_watch': '⚪ नजर रखें',
+        'report_type_brand': 'ब्रांड',
+        'report_type_spec': 'विनिर्देश',
+        'report_type_scenario': 'उपयोग परिदृश्य',
+        'report_type_core': 'मुख्य उत्पाद',
+        'report_type_category': 'श्रेणी',
+        'report_insight_top_n': '**शीर्ष {n} शब्द** कुल इंप्रेशन का 80% योगदान देते हैं',
+        'report_insight_waste': '**{n} शब्द** में खर्च है लेकिन 0 बिक्री — रोकने या बोली घटाने पर विचार करें',
+        'report_insight_top_type': 'इंप्रेशन मुख्यतः 「**{t}**」 से',
     },
 }
 
@@ -1310,8 +1796,18 @@ div[data-testid="metric-container"] {
 # ── Language selector (always top-right) ──
 if 'lang_label' not in st.session_state:
     st.session_state.lang_label = '🇨🇳 中文'
+if 'site_label' not in st.session_state:
+    st.session_state.site_label = 'eBay US'
 
-_lang_col = st.columns([6, 1])[1]
+_, _site_col, _lang_col = st.columns([5, 1, 1])
+
+with _site_col:
+    st.session_state.site_label = st.selectbox(
+        '🌍', list(EBAY_SITES.keys()),
+        index=list(EBAY_SITES.keys()).index(st.session_state.site_label),
+        label_visibility='collapsed',
+    )
+
 with _lang_col:
     st.session_state.lang_label = st.selectbox(
         '🌐', list(LANG_OPTIONS.keys()),
@@ -1353,17 +1849,30 @@ else:
             with _btn_c:
                 analyze = st.form_submit_button(T['analyze_btn'], use_container_width=True)
 
-# New search → fetch data and cache it; language change → use cache
+# New search or site change → fetch data and cache it; language change → use cache
+_site_info = EBAY_SITES[st.session_state.site_label]
+
 if analyze and seller_id_input.strip():
     new_sid = seller_id_input.strip()
-    if new_sid != st.session_state.get('cached_sid'):
-        # Different seller: clear all caches
+    new_key = f"{new_sid}@{st.session_state.site_label}"
+    if new_key != st.session_state.get('cached_key'):
         st.session_state['cached_sid'] = new_sid
+        st.session_state['cached_key'] = new_key
         st.session_state.pop('cached_store', None)
         st.session_state.pop('cached_kw_candidates', None)
 
-# Nothing cached yet and no new search → show nothing
+# Site changed without new search → clear store cache
+if st.session_state.get('cached_sid'):
+    _expected_key = f"{st.session_state['cached_sid']}@{st.session_state.site_label}"
+    if _expected_key != st.session_state.get('cached_key'):
+        st.session_state['cached_key'] = _expected_key
+        st.session_state.pop('cached_store', None)
+        st.session_state.pop('cached_kw_candidates', None)
+
+# Nothing cached yet and no new search → show report section then stop
 if 'cached_sid' not in st.session_state:
+    st.markdown('---')
+    _render_report_section(T, key_suffix='main')
     st.stop()
 
 seller_id = st.session_state['cached_sid']
@@ -1371,7 +1880,11 @@ seller_id = st.session_state['cached_sid']
 # Fetch & cache store (slow: HTTP requests)
 if 'cached_store' not in st.session_state:
     with st.spinner(T['spinner_analyze'].format(sid=seller_id)):
-        st.session_state['cached_store'] = scrape_store(seller_id)
+        st.session_state['cached_store'] = scrape_store(
+            seller_id,
+            base_domain=_site_info['domain'],
+            currency=_site_info['currency'],
+        )
 
 store = st.session_state['cached_store']
 
@@ -1402,7 +1915,7 @@ with col_chart:
 with col_rec:
     st.subheader(T['store_overview'])
     m1, m2, m3 = st.columns(3)
-    m1.metric(T['asp_label'], f"${store['asp_median']:.0f}")
+    m1.metric(T['asp_label'], f"{_site_info['currency']}{store['asp_median']:.0f}")
     _total = store.get('total_listing_count', '')
     m2.metric(T['listing_count'], _total if _total else store['listing_count'])
     m3.metric(T['vertical_score'], f"{store['vertical_score']}/10")
@@ -1448,10 +1961,26 @@ with col_rec:
         f'<div style="display:flex;height:26px;border-radius:5px;overflow:hidden;margin-bottom:12px;gap:2px;">{_bar_segs}</div>'
         f'{_bullets}'
         f'<div style="margin-top:10px;color:#4b5563;font-size:0.75em;line-height:1.6;">'
-        f'* PLG 按出单付费（CPS），无固定日预算 &nbsp;|&nbsp; OA 为 eBay 邀请项目，独立计费'
+        f'* PLP手动：精准控ROAS，适合高单价高利润 &nbsp;·&nbsp; PLP自动：Smart Targeting免维词，运营省力 &nbsp;·&nbsp; PLG：按出单付费（CPS），零日预算压力 &nbsp;·&nbsp; OA：引入谷歌/Meta站外流量，已向全体卖家开放'
         f'</div></div>',
         unsafe_allow_html=True
     )
+
+    # ── Action checklist ──
+    with st.expander('📋 落地行动清单 — 第一个月怎么做', expanded=False):
+        _steps = QUADRANT_CHECKLIST[quadrant]
+        for _i, (_title, _detail) in enumerate(_steps, 1):
+            st.markdown(
+                f'<div style="display:flex;gap:12px;padding:10px 0;'
+                f'border-bottom:1px solid #e5e7eb;">'
+                f'<div style="min-width:24px;height:24px;border-radius:50%;'
+                f'background:{QUADRANT_COLOR[quadrant]};color:#fff;font-size:0.8em;font-weight:700;'
+                f'display:flex;align-items:center;justify-content:center;flex-shrink:0;">{_i}</div>'
+                f'<div><div style="font-weight:600;color:#111827;font-size:0.95em;">{_title}</div>'
+                f'<div style="color:#6b7280;font-size:0.85em;margin-top:2px;">{_detail}</div>'
+                f'</div></div>',
+                unsafe_allow_html=True
+            )
 
 # ── Row 2: PLP Keywords ──
 st.markdown("---")
@@ -1481,7 +2010,8 @@ else:
         with st.spinner(T['spinner_kw']):
             _titles = store.get('titles', [])
             _seeds = extract_seeds_from_titles(_titles, store['category'])
-            st.session_state['cached_kw_candidates'] = _fetch_kw_candidates(_seeds, _titles)
+            _autosug = 'autosug.' + _site_info['domain'].replace('www.', '')
+            st.session_state['cached_kw_candidates'] = _fetch_kw_candidates(_seeds, _titles, _autosug)
 
     # Build df with current language (fast, no network)
     _candidates, _synonym_kws = st.session_state['cached_kw_candidates']
@@ -1580,8 +2110,12 @@ st.markdown("---")
 st.subheader(T['plg_section'])
 st.caption(T['plg_caption'])
 
-plg_df = get_plg_groups(store['prices'], seller_id, T=T)
+plg_df = get_plg_groups(store['prices'], seller_id, T=T, currency=_site_info['currency'])
 if not plg_df.empty:
     st.dataframe(plg_df, use_container_width=True)
 else:
     st.info(T['plg_no_data'])
+
+# ── Row 4: Report Analysis ──
+st.markdown('---')
+_render_report_section(T, key_suffix='results')
