@@ -1252,6 +1252,17 @@ def _add_action_labels(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+@st.cache_data(show_spinner=False)
+def _parse_report_csv(file_bytes: bytes) -> pd.DataFrame:
+    """Parse report CSV bytes — cached so re-runs don't re-read the same file."""
+    try:
+        df = pd.read_csv(BytesIO(file_bytes), skiprows=2, encoding='utf-8-sig')
+    except Exception:
+        df = pd.read_csv(BytesIO(file_bytes), skiprows=2, encoding='latin-1')
+    df.columns = df.columns.str.strip()
+    return df
+
+
 def _render_report_section(T: dict, key_suffix: str = ''):
     st.subheader(T.get('report_title', '📊 广告报告分析'))
     st.caption(T.get('report_caption', '上传 eBay 广告报告 CSV（Search Query / Keyword / Listing），自动识别类型并高亮关键数据'))
@@ -1266,13 +1277,7 @@ def _render_report_section(T: dict, key_suffix: str = ''):
     if uploaded is None:
         return
 
-    try:
-        df = pd.read_csv(uploaded, skiprows=2, encoding='utf-8-sig')
-    except Exception:
-        uploaded.seek(0)
-        df = pd.read_csv(uploaded, skiprows=2, encoding='latin-1')
-
-    df.columns = df.columns.str.strip()
+    df = _parse_report_csv(uploaded.getvalue())
     report_type = _detect_report_type(df)
 
     if report_type is None:
@@ -1418,7 +1423,7 @@ def _render_report_section(T: dict, key_suffix: str = ''):
 
 # ── Streamlit UI ──────────────────────────────────────────────────────────────
 
-LANG_OPTIONS = {'🇨🇳 中文': 'zh', '🇺🇸 English': 'en', '🇮🇳 हिंदी': 'hi'}
+LANG_OPTIONS = {'🇨🇳 中文': 'zh', '🇺🇸 English': 'en', '🇮🇳 हिंदी': 'hi', '🇯🇵 日本語': 'ja', '🇰🇷 한국어': 'ko'}
 
 TRANSLATIONS = {
     'zh': {
@@ -1529,6 +1534,11 @@ TRANSLATIONS = {
         'report_insight_top_n': '**前 {n} 个词** 贡献了 80% 的总曝光',
         'report_insight_waste': '**{n} 个词** 有花费但 0 出单，建议暂停或降出价',
         'report_insight_top_type': '曝光主要来自「**{t}**」',
+        # Budget allocation & checklist
+        'alloc_title': '广告投入占比建议',
+        'alloc_footnote': '* PLP手动：精准控ROAS，适合高单价高利润 &nbsp;·&nbsp; PLP自动：Smart Targeting免维词，运营省力 &nbsp;·&nbsp; PLG：按出单付费（CPS），零日预算压力 &nbsp;·&nbsp; OA：引入谷歌/Meta站外流量，已向全体卖家开放',
+        'checklist_title': '📋 落地行动清单 — 第一个月怎么做',
+        'name_map': {},
     },
     'en': {
         # Page
@@ -1641,6 +1651,63 @@ TRANSLATIONS = {
         'report_insight_top_n': '**Top {n} term(s)** account for 80% of total impressions',
         'report_insight_waste': '**{n} term(s)** have spend but 0 sales — consider pausing or lowering bids',
         'report_insight_top_type': 'Most impressions from 「**{t}**」',
+        # Budget allocation & checklist
+        'alloc_title': 'Budget Allocation Guide',
+        'alloc_footnote': '* PLP Manual: precise ROAS control, best for high-ASP high-margin &nbsp;·&nbsp; PLP Auto: Smart Targeting, no keyword maintenance &nbsp;·&nbsp; PLG: pay-per-sale (CPS), zero daily budget risk &nbsp;·&nbsp; OA: Google/Meta offsite traffic, open to all sellers',
+        'checklist_title': '📋 Action Checklist — First Month',
+        'name_map': {'PLP手动': 'PLP Manual', 'PLP自动': 'PLP Auto'},
+        'alloc_descs': {
+            '右上': {
+                'PLG':    'Core traffic base — high ASP needs only 2-3% rate, already competitive; CPS covers all SKUs',
+                'PLP手动': 'High ASP margin supports CPC; precise keywords for direct ROAS control, capture high-intent buyers',
+                'PLP自动': 'Smart Targeting fills long-tail gaps manual keywords miss — zero keyword maintenance',
+                'OA':     'High unit price justifies offsite — Google/Meta reaches buyers already comparing prices',
+            },
+            '左上': {
+                'PLG':    'Core traffic base — high ASP, low rate (2-3%) is competitive; CPS covers the full multi-category catalog',
+                'PLP自动': 'High-value SKU focus — Smart Targeting auto-locks high-intent traffic, no manual keyword work',
+                'OA':     'Whole-store offsite promotion — high ASP justifies Google/Meta; strong new-buyer acquisition ROI',
+            },
+            '右下': {
+                'PLG':    'Core traffic base — thin CPC margin at low ASP; CPS pay-per-sale is zero-risk to find winners',
+                'PLP手动': 'Manual keywords only after a winner is confirmed — sales data before committing CPC spend',
+                'PLP自动': 'Smart Targeting for vertical long-tail — ideal when ad management time is limited',
+            },
+            '左下': {
+                'PLG':    'Core traffic base — low ASP + broad catalog leaves almost no CPC room; CPS is the only sustainable option',
+                'OA':     'Whole-store offsite exposure — Google/Meta offsets fierce on-site competition and low impressions',
+            },
+        },
+        'checklist_steps': {
+            '右上': [
+                ('Launch PLG at 2-3% rate', 'High ASP + low rate = competitive absolute bid; CPS covers all SKUs with zero daily spend risk'),
+                ('Launch PLP Manual Ad Group simultaneously', 'High margin supports CPC; pick 10-15 core keywords and activate immediately — no validation wait needed'),
+                ('Enable PLP Auto (Smart Targeting)', 'Fills long-tail searches manual keywords miss; system automatically matches buyer intent'),
+                ('Optimise keywords after 2 weeks', 'Pause terms with ROAS < 4x; increase bids on terms with ROAS > 10x'),
+                ('Launch OA offsite', 'High-ASP categories benefit from Google/Meta traffic; strong new-buyer acquisition at store or item level'),
+            ],
+            '左上': [
+                ('Launch PLG at 2-3% rate', 'High ASP + low rate is competitive; broad catalog makes CPS the safest full-store coverage'),
+                ('Select high-value SKUs for Smart Targeting', 'Too many SKUs for manual keywords; let the algorithm capture high-intent traffic on premium items'),
+                ('Observe 2 weeks to find top-converting categories', 'Identify which categories/items actually convert before committing more budget'),
+                ('Add 1-2 manual keyword groups for top categories', 'Avoid large-scale keyword management; only add precise manual groups for verified high-value categories'),
+                ('Launch OA whole-store campaign', 'Mixed catalog is hard to target at item level; OA at store level lifts overall Google/Meta visibility'),
+            ],
+            '右下': [
+                ('Start PLG at 5-8% rate', 'Low ASP needs a higher rate to keep absolute bid competitive; CPS zero-risk to probe which listings sell'),
+                ('Wait 2-3 weeks for stable winners (≥3 sales)', 'No rush to open CPC — sales data tells you which items are worth advertising spend'),
+                ('Open PLP Manual for winners', 'Only bid on verified winners; pick 5-8 core keywords, target ROAS ≥ 5x'),
+                ('Enable PLP Auto for long-tail', 'Add Smart Targeting once manual terms are stable — avoids splitting budget during validation'),
+                ('Monitor ROAS continuously — pause if unprofitable', 'Low ASP leaves very little room for error; ROAS below 5x → pause and review immediately'),
+            ],
+            '左下': [
+                ('PLG only, at 5-8% rate', 'Low ASP + broad catalog leaves almost no CPC margin; CPS pay-per-sale is the only sustainable ad model'),
+                ('Do not open PLP Manual ads', 'CPC risk is extremely high at low unit price — only if backed by per-item ROAS history'),
+                ('Wait 3-4 weeks to find top-selling listings', 'Use PLG data to identify SKUs with real conversion potential before investing further'),
+                ('Raise PLG rate for top sellers', 'Build a separate ad group for best-converting listings; slightly higher rate captures more impressions'),
+                ('Launch OA whole-store for offsite traffic', 'Store-level Google/Meta promotion offsets heavy on-site competition and low organic impressions'),
+            ],
+        },
     },
     'hi': {
         # Page
@@ -1753,6 +1820,63 @@ TRANSLATIONS = {
         'report_insight_top_n': '**शीर्ष {n} शब्द** कुल इंप्रेशन का 80% योगदान देते हैं',
         'report_insight_waste': '**{n} शब्द** में खर्च है लेकिन 0 बिक्री — रोकने या बोली घटाने पर विचार करें',
         'report_insight_top_type': 'इंप्रेशन मुख्यतः 「**{t}**」 से',
+        # Budget allocation & checklist
+        'alloc_title': 'विज्ञापन बजट आवंटन सुझाव',
+        'alloc_footnote': '* PLP मैनुअल: ROAS नियंत्रण, उच्च ASP के लिए &nbsp;·&nbsp; PLP ऑटो: Smart Targeting, कोई कीवर्ड रखरखाव नहीं &nbsp;·&nbsp; PLG: प्रति बिक्री भुगतान (CPS) &nbsp;·&nbsp; OA: Google/Meta ऑफसाइट ट्रैफ़िक, सभी विक्रेताओं के लिए',
+        'checklist_title': '📋 कार्य चेकलिस्ट — पहला महीना',
+        'name_map': {'PLP手动': 'PLP मैनुअल', 'PLP自动': 'PLP ऑटो'},
+        'alloc_descs': {
+            '右上': {
+                'PLG':    'मुख्य ट्रैफ़िक आधार — उच्च ASP पर 2-3% दर पर्याप्त, CPS पूर्ण SKU कवरेज',
+                'PLP手动': 'उच्च ASP CPC का समर्थन करता है; सटीक ROAS नियंत्रण, उच्च इरादे वाले खरीदार',
+                'PLP自动': 'Smart Targeting लंबी-पूंछ खोज भरता है — कोई कीवर्ड रखरखाव नहीं',
+                'OA':     'उच्च ASP ऑफसाइट को उचित ठहराता है — Google/Meta से तुलना कर रहे खरीदार',
+            },
+            '左上': {
+                'PLG':    'मुख्य ट्रैफ़िक आधार — उच्च ASP, कम दर (2-3%) प्रतिस्पर्धी; CPS बहु-श्रेणी कवरेज',
+                'PLP自动': 'उच्च-मूल्य SKU फोकस — Smart Targeting स्वतः उच्च इरादे ट्रैफ़िक लॉक करता है',
+                'OA':     'पूर्ण-स्टोर ऑफसाइट — उच्च ASP Google/Meta को उचित ठहराता है, नए खरीदार',
+            },
+            '右下': {
+                'PLG':    'मुख्य ट्रैफ़िक आधार — कम ASP पर CPC जोखिम; CPS प्रति बिक्री शून्य जोखिम',
+                'PLP手动': 'केवल विजेता पुष्टि के बाद मैनुअल कीवर्ड — बिक्री डेटा के बाद CPC',
+                'PLP自动': 'वर्टिकल लंबी-पूंछ के लिए Smart Targeting — सीमित समय वाले विक्रेताओं के लिए',
+            },
+            '左下': {
+                'PLG':    'मुख्य ट्रैफ़िक आधार — कम ASP + व्यापक कैटलॉग में CPC की कोई गुंजाइश नहीं; CPS एकमात्र विकल्प',
+                'OA':     'पूर्ण-स्टोर ऑफसाइट — Google/Meta ऑन-साइट प्रतिस्पर्धा की भरपाई करता है',
+            },
+        },
+        'checklist_steps': {
+            '右上': [
+                ('PLG 2-3% दर पर शुरू करें', 'उच्च ASP + कम दर = प्रतिस्पर्धी बोली; CPS सभी SKU बिना दैनिक खर्च जोखिम के कवर करता है'),
+                ('PLP मैनुअल विज्ञापन समूह एक साथ शुरू करें', 'उच्च मार्जिन CPC का समर्थन करता है; नीचे से 10-15 मुख्य कीवर्ड चुनें और तुरंत लॉन्च करें'),
+                ('PLP ऑटो (Smart Targeting) सक्षम करें', 'मैनुअल कीवर्ड से छूटी लंबी-पूंछ खोजें भरता है; सिस्टम खरीदार इरादे से मिलाता है'),
+                ('2 सप्ताह बाद कीवर्ड अनुकूलित करें', 'ROAS < 4x वाले शब्द रोकें; ROAS > 10x वाले की बोली बढ़ाएं'),
+                ('OA ऑफसाइट लॉन्च करें', 'उच्च ASP श्रेणियां Google/Meta ट्रैफ़िक से लाभ उठाती हैं; स्टोर या आइटम स्तर पर'),
+            ],
+            '左上': [
+                ('PLG 2-3% दर पर शुरू करें', 'उच्च ASP + कम दर प्रतिस्पर्धी; CPS पूर्ण बहु-श्रेणी कवरेज के लिए सुरक्षित'),
+                ('उच्च-मूल्य SKU के लिए Smart Targeting', 'बहुत अधिक SKU — एल्गोरिदम को प्रीमियम आइटम पर उच्च-इरादे ट्रैफ़िक पकड़ने दें'),
+                ('2 सप्ताह शीर्ष-रूपांतरण श्रेणियां खोजें', 'अधिक बजट लगाने से पहले पहचानें कि कौन सी श्रेणियां वास्तव में रूपांतरित होती हैं'),
+                ('शीर्ष श्रेणियों के लिए 1-2 मैनुअल कीवर्ड समूह', 'केवल सत्यापित उच्च-मूल्य श्रेणियों के लिए मैनुअल समूह जोड़ें'),
+                ('OA पूर्ण-स्टोर अभियान शुरू करें', 'मिश्रित कैटलॉग आइटम स्तर पर लक्षित करना कठिन; OA स्टोर स्तर पर Google/Meta दृश्यता बढ़ाता है'),
+            ],
+            '右下': [
+                ('PLG 5-8% दर से शुरू करें', 'कम ASP को बोली प्रतिस्पर्धी रखने के लिए उच्च दर चाहिए; CPS विजेता खोजने के लिए शून्य जोखिम'),
+                ('2-3 सप्ताह स्थिर विजेता खोजें (≥3 बिक्री)', 'CPC जल्दी नहीं खोलें — बिक्री डेटा बताता है कि कौन से आइटम विज्ञापन के लायक हैं'),
+                ('विजेताओं के लिए PLP मैनुअल खोलें', 'केवल सत्यापित विजेताओं पर बोली; 5-8 मुख्य कीवर्ड, ROAS ≥ 5x का लक्ष्य'),
+                ('लंबी-पूंछ के लिए PLP ऑटो सक्षम करें', 'मैनुअल शब्द स्थिर होने के बाद Smart Targeting जोड़ें — सत्यापन चरण में बजट विभाजन से बचें'),
+                ('ROAS निरंतर मॉनिटर करें — अलाभकारी होने पर रोकें', 'कम ASP में बहुत कम गुंजाइश; ROAS 5x से नीचे जाए तो तुरंत रोकें और समीक्षा करें'),
+            ],
+            '左下': [
+                ('केवल PLG, 5-8% दर पर', 'कम ASP + व्यापक कैटलॉग में CPC के लिए लगभग कोई मार्जिन नहीं; CPS एकमात्र टिकाऊ मॉडल'),
+                ('PLP मैनुअल विज्ञापन न खोलें', 'कम ASP पर CPC जोखिम बहुत अधिक — प्रति-आइटम ROAS इतिहास के बिना नहीं'),
+                ('3-4 सप्ताह शीर्ष-बिक्री लिस्टिंग खोजें', 'PLG डेटा से असली रूपांतरण क्षमता वाले SKU पहचानें'),
+                ('शीर्ष विक्रेताओं के लिए PLG दर बढ़ाएं', 'बेस्ट-कन्वर्टिंग लिस्टिंग का अलग विज्ञापन समूह बनाएं, थोड़ी अधिक दर से अधिक इंप्रेशन'),
+                ('ऑफसाइट ट्रैफ़िक के लिए OA पूर्ण-स्टोर', 'स्टोर-स्तर Google/Meta भारी ऑन-साइट प्रतिस्पर्धा की भरपाई करता है'),
+            ],
+        },
     },
 }
 
@@ -1917,7 +2041,8 @@ with col_rec:
     m1, m2, m3 = st.columns(3)
     m1.metric(T['asp_label'], f"{_site_info['currency']}{store['asp_median']:.0f}")
     _total = store.get('total_listing_count', '')
-    m2.metric(T['listing_count'], _total if _total else store['listing_count'])
+    _total_valid = _total if (_total and _total.strip('0+,') != '') else ''
+    m2.metric(T['listing_count'], _total_valid if _total_valid else store['listing_count'])
     m3.metric(T['vertical_score'], f"{store['vertical_score']}/10")
 
     st.markdown(f"{T['main_category']}{store['category']}")
@@ -1935,11 +2060,13 @@ with col_rec:
 
     # ── Budget allocation insight (uses st.markdown for full responsiveness) ──
     _alloc = QUADRANT_ALLOCATION[quadrant]
+    _name_map = T.get('name_map', {})
+    _alloc_descs = T.get('alloc_descs', {}).get(quadrant, {})
     _bar_segs = ''.join(
         f'<div style="width:{pct}%;background:{color};display:flex;align-items:center;'
         f'justify-content:center;color:#fff;font-size:0.75em;font-weight:700;'
         f'white-space:nowrap;overflow:hidden;padding:0 4px;">'
-        f'{name} {pct}%</div>'
+        f'{_name_map.get(name, name)} {pct}%</div>'
         for name, pct, color, _ in _alloc
     )
     _bullets = ''.join(
@@ -1948,27 +2075,27 @@ with col_rec:
         f'<div style="width:9px;height:9px;border-radius:50%;background:{color};'
         f'flex-shrink:0;margin-top:4px;"></div>'
         f'<div style="line-height:1.5;">'
-        f'<span style="color:{color};font-weight:700;">{name}</span>'
+        f'<span style="color:{color};font-weight:700;">{_name_map.get(name, name)}</span>'
         f'<span style="color:#374151;font-weight:600;"> · {pct}%</span>'
-        f'<span style="color:#6b7280;font-size:0.9em;margin-left:8px;">{desc}</span>'
+        f'<span style="color:#6b7280;font-size:0.9em;margin-left:8px;">{_alloc_descs.get(name, desc)}</span>'
         f'</div>'
         f'</div>'
         for name, pct, color, desc in _alloc
     )
     st.markdown(
         f'<div style="margin:8px 0 4px 0;">'
-        f'<div style="color:#6b7280;font-size:0.75em;font-weight:600;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;">广告投入占比建议</div>'
+        f'<div style="color:#6b7280;font-size:0.75em;font-weight:600;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;">{T.get("alloc_title", "广告投入占比建议")}</div>'
         f'<div style="display:flex;height:26px;border-radius:5px;overflow:hidden;margin-bottom:12px;gap:2px;">{_bar_segs}</div>'
         f'{_bullets}'
         f'<div style="margin-top:10px;color:#4b5563;font-size:0.75em;line-height:1.6;">'
-        f'* PLP手动：精准控ROAS，适合高单价高利润 &nbsp;·&nbsp; PLP自动：Smart Targeting免维词，运营省力 &nbsp;·&nbsp; PLG：按出单付费（CPS），零日预算压力 &nbsp;·&nbsp; OA：引入谷歌/Meta站外流量，已向全体卖家开放'
+        f'{T.get("alloc_footnote", "* PLP手动：精准控ROAS，适合高单价高利润 &nbsp;·&nbsp; PLP自动：Smart Targeting免维词，运营省力 &nbsp;·&nbsp; PLG：按出单付费（CPS），零日预算压力 &nbsp;·&nbsp; OA：引入谷歌/Meta站外流量，已向全体卖家开放")}'
         f'</div></div>',
         unsafe_allow_html=True
     )
 
     # ── Action checklist ──
-    with st.expander('📋 落地行动清单 — 第一个月怎么做', expanded=False):
-        _steps = QUADRANT_CHECKLIST[quadrant]
+    with st.expander(T.get('checklist_title', '📋 落地行动清单 — 第一个月怎么做'), expanded=False):
+        _steps = T.get('checklist_steps', {}).get(quadrant, QUADRANT_CHECKLIST[quadrant])
         for _i, (_title, _detail) in enumerate(_steps, 1):
             st.markdown(
                 f'<div style="display:flex;gap:12px;padding:10px 0;'
